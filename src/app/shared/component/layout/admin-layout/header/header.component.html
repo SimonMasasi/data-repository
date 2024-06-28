@@ -1,0 +1,29 @@
+<header class="w-full color-bg fixed z-1  h-52  ">
+
+</header>
+<!-- app.component.html -->
+
+<nav class="border-white z-10 w-full nav-top dark:bg-gray-900" style="background-color:#022E51">
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between p-5 ml-10">
+    <a routerLink="/dashboard/home" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <span class="self-center text-xl text-white tracking-wider font-semibold whitespace-nowrap dark:text-white">Data-wire Repository</span>
+    </a>
+    <!-- Logout Dropdown -->
+    <div class="relative dropdown-container" [ngClass]="{ 'open': isDropdownOpen }">
+      <button class="flex items-center text-white focus:outline-none" (click)="toggleDropdown()">
+        <span class="mr-2">Username</span>
+        <i class="fas fa-solid fa-user-circle text-2xl"></i>
+      </button>
+      <!-- Dropdown Content -->
+      <div class="dropdown-content">
+        <ul class="py-1">
+          <li><i class="fas fa-regular fa-user mr-2"></i><a href="#">Profile</a></li>
+          <!-- <li><a href="#">Settings</a></li> -->
+          <li><span class="mdi mdi-logout mr-2"></span> <a class="cursor-pointer" (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+

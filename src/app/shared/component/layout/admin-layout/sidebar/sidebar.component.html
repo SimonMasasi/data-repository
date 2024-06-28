@@ -1,0 +1,84 @@
+<div class="sidebar" [ngClass]="{'open': open}">
+  <div class="logo_details flex justify-center mb-5">
+    <!-- <i class="bx bxl-audible icon"></i> -->
+    <div class="logo_name ">
+      <!-- Code Effect -->
+      <div class="rounded-full border border-white mt-5 p-2">
+          <img src="../../../../../../assets/images/emblem1.png" width="100" alt="">
+      </div>
+      <h2 class="text-sm tracking-widest mt-2 text-gray-300">{{ user.username}}</h2>
+      <h2 class=" font-semibold text-sm tracking-widest text-center" style="font-size: 0.7rem;">ADMIN</h2>
+  </div>
+    <i class="bx bx-menu" id="btn" (click)="closeBtn()"></i>
+  </div>
+  <ul class="nav-list">
+    <li>
+      <!-- <i class="bx bx-search"></i>
+      <input type="text" placeholder="Search...">
+       <span class="tooltip">Search</span>
+    </li> -->
+    <li>
+      <a routerLink="/dashboard/home">
+        <i class="bx bx-grid-alt"></i>
+        <span class="link_name">Dashboard</span>
+      </a>
+      <span class="tooltip">Dashboard</span>
+    </li>
+    <li>
+      <a routerLink="/dashboard/all-users">
+        <i class="bx bx-user"></i>
+        <span class="link_name">User</span>
+      </a>
+      <span class="tooltip">User</span>
+    </li>
+    <li>
+      <a routerLink="/dashboard/user-roles">
+        <i class="bx bx-user"></i>
+        <span class="link_name">User Roles</span>
+      </a>
+      <span class="tooltip">User Roles</span>
+    </li>
+    <li>
+      <a routerLink="/dashboard/datasets-list">
+        <i class="bx bx-chat"></i>
+        <span class="link_name">Datasets List</span>
+      </a>
+      <span class="tooltip">Datsets</span>
+    </li>
+    <li>
+      <a routerLink="/dashboard/models-list">
+        <i class="bx bx-pie-chart-alt-2"></i>
+        <span class="link_name">Models List</span>
+      </a>
+      <span class="tooltip">Models</span>
+    </li>
+    <li>
+      <a routerLink="/repositpry">
+        <i class="bx bx-folder"></i>
+        <span class="link_name">Repository List</span>
+      </a>
+      <span class="tooltip">Repository</span>
+    </li>
+    <!-- <li>
+      <a href="#">
+        <i class="bx bx-cart-alt"></i>
+        <span class="link_name">Order</span>
+      </a>
+      <span class="tooltip">Order</span>
+    </li> -->
+    <li>
+      <a routerLink="/settings">
+        <i class="bx bx-cog"></i>
+        <span class="link_name">Settings</span>
+      </a>
+      <span class="tooltip">Settings</span>
+    </li>
+  </ul>
+</div>
+<section class="home-section p-8">
+  <div class="card-body-custom">
+    <app-breadcrumbs></app-breadcrumbs>
+    <router-outlet></router-outlet>
+  </div>
+  
+</section>

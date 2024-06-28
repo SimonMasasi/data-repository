@@ -1,0 +1,45 @@
+.color-bg {
+    background-color: #022E51;
+    z-index: 1;
+}
+.nav-top {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+/* app.component.scss */
+
+.dropdown-container {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 10rem; /* Adjust width as needed */
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: none;
+  }
+  
+  .dropdown-container.open .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown-content ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+  
+  .dropdown-content li {
+    padding: 0.5rem 1rem;
+  }
+  
+  .dropdown-content li:hover {
+    background-color: #f0f0f0;
+  }
+  

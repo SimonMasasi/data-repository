@@ -1,0 +1,50 @@
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+.header-back {
+  height: 30vh;
+  width: 100%;
+  color: white;
+  // font: bold 6.5em/2em monospace;
+  background: linear-gradient(to top, #022E51, #022E51), url(../../../../assets/images/back2.jpg) no-repeat top center;
+  background-size: cover;
+}
+.txt-black{
+  color: black;
+}
+.txt-white{
+  color: white;
+}
+.bg-black{
+  background-color: black;
+}
+.bg-white{
+  background-color: rgb(48, 77, 55);
+}
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: rgb(117, 112, 112); 
+}
+/** No CSS for this example */
+::ng-deep .mat-step-header .mat-step-icon-state-number {
+  /* background-color: #ba2805; */
+  background-color: rgba(0, 0, 0, 0.54);
+  color: #ffffff;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected,
+::ng-deep .mat-step-header .mat-step-icon-state-done,
+::ng-deep .mat-step-header .mat-step-icon-state-edit {
+  background-color: #053eba;
+  color: #ffffff;
+}
+::ng-deep .mat-horizontal-stepper .mat-step-header-line {
+  /* Change the color of the step line */
+  background-color: green; /* Example color */
+}
+.inputs{
+  height: 3rem; background-color: rgba(98, 101, 104, 0.644); border-radius:10px
+}

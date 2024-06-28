@@ -1,0 +1,38 @@
+.header-back {
+    height: 25vh;
+    width: 100%;
+    color: white;
+    // font: bold 6.5em/2em monospace;
+    background: linear-gradient(to top, #022E51, #022E51), url(../../../../../assets/images/data.png) no-repeat top center;
+    background-size: cover;
+  }
+  .grid.grid-cols-custom {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Base for all screens */
+  
+    @media (min-width: 800px) {  /* For screens wider than 800px */
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Two columns */
+    }
+  
+    @media (min-width: 1100px) { /* For screens wider than 1100px */
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Three columns */
+    }
+  }
+  /* styles.css or any external CSS file */
+
+.card {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.download-btn{
+  background-color:  #022E51;
+  color: white;
+}
+
+.download-btn:hover{
+  background-color:  #022E51;
+  color: white;
+}

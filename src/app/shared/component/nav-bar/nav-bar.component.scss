@@ -1,0 +1,35 @@
+.nav-link {
+    position: relative;
+    color: white;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .nav-link:hover {
+    color: #ccc;
+  }
+  
+  .nav-link:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 0;
+    background-color: #fff;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link.active:after {
+    width: 100%;
+  }
+  /* Custom class to apply underline */
+  .router-link-active {
+    border-bottom: 2px solid #a0aec0; /* Adjust border color and thickness as needed */
+    color: #4299e1; /* Adjust text color for active link */
+  }
+  .router-link-active.router-link-home {
+    border-bottom: none; /* Remove border-bottom for the home link */
+  }
+    

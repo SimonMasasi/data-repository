@@ -1,0 +1,72 @@
+<!-- dashboard.component.html -->
+
+<div class="grid flex grid-cols-1 md:grid-cols-1 xl:grid-cols-4 sm:grid-cols-1 gap-4 p-8">
+    <div class="bg-white shadow-md rounded-lg p-6 col-span-2">
+      <h2 class="text-xl font-semibold mb-4">Total Users</h2>
+      <div class="flex items-center justify-between">
+        <div class="text-4xl font-bold">{{ summaryData?.total_users }}</div>
+      </div>
+    </div>
+  
+    <!-- Total Repositories Card -->
+    <div class="bg-white shadow-md rounded-lg p-6 col-span-2">
+      <h2 class="text-xl font-semibold mb-4">Total Repositories</h2>
+      <div class="flex items-center justify-between">
+        <div class="text-4xl font-bold">{{ summaryData?.total_repositories }}</div>
+      </div>
+    </div>
+  
+    <!-- Roles Summary Chart -->
+    <div class="bg-white shadow-md rounded-lg p-6 col-span-4">
+      <h2 class="text-xl font-semibold mb-4">Roles Summary</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div *ngFor="let roleSummary of summaryData?.roles_summary" class="bg-gray-100 rounded-md p-4">
+          <div class="text-lg font-semibold">{{ roleSummary.role__name }}s</div>
+          <div class="text-xl font-bold">{{ roleSummary.user_count }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow-md grid col-span-1 rounded-lg p-6 mt-8">
+      <h2 class="text-xl font-semibold mb-4">Datasets Summary</h2>
+      <div class="gap-4">
+        <app-donut-chart [datasetSummary]="summaryData.datasets_summary"></app-donut-chart>
+      </div>
+    </div>
+    <div class="bg-white shadow-md grid col-span-3 rounded-lg p-6 mt-8">
+      <h2 class="text-xl font-semibold mb-4">Dataset Downloads Over Time</h2>
+      <div class="gap-4">
+        <app-line-graph [labels]="getLabels()" [counts]="getCounts()"></app-line-graph>
+      </div>
+    </div>
+    <!-- Datasets Summary Chart -->
+  </div>
+
+  <div class="container mx-auto p-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <app-donut-chart [datasetSummary]="summaryData.datasets_summary"></app-donut-chart>
+      <div class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-lg font-semibold mb-4">Pie Chart 1</h2>
+        <div class="chart-placeholder w-full h-64"></div>
+      </div>
+      <!-- <app-donut-chart [datasetSummary]="summaryData.datasets_summary"></app-donut-chart>
+      <div class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-lg font-semibold mb-4">Pie Chart 2</h2>
+        <div class="chart-placeholder w-full h-64"></div>
+      </div> -->
+  
+        <app-line-graph [labels]="getLabels()" [counts]="getCounts()"></app-line-graph>
+        <div class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-lg font-semibold mb-4">Line Graph 1</h2>
+        <div class="chart-placeholder w-full h-64"></div>
+      </div>
+  
+      <!-- <app-donut-chart [datasetSummary]="summaryData.datasets_summary"></app-donut-chart>
+      <div class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-lg font-semibold mb-4">Line Graph 2</h2>
+        <div class="chart-placeholder w-full h-64"></div>
+      </div> -->
+    </div>
+  </div>
+  
+  

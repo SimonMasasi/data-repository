@@ -1,0 +1,42 @@
+<section class="body-full-color">
+    <app-nav-bar></app-nav-bar>
+      
+    <div class="flex flex-col lg:flex-row justify-between items-center mt-10 p-4">
+        <!-- Registration Form -->
+        <div class="flex form-container justify-center items-center p-4 lg:p-10 lg:mx-32 lg:w-1/2">
+            <form class="form" (ngSubmit)="onSubmit()">
+                <p class="title">Register</p>
+                <p class="message">Sign up now and get full access to our app.</p>
+                <div class="flex flex-col lg:flex-row">
+                    <label class="w-full lg:w-1/2 lg:pr-2">
+                        <input required="" placeholder="" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" id="firstName" type="text" class="input">
+                        <span>Firstname</span>
+                    </label>
+                    <label class="w-full lg:w-1/2 lg:pl-2">
+                        <input required="" placeholder="" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" id="lastName" type="text" class="input">
+                        <span>Lastname</span>
+                    </label>
+                </div>
+                <label>
+                    <input required="" placeholder="" style="min-width: 400px;" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" id="email" type="email" class="input">
+                    <span>Email</span>
+                </label>
+                <label>
+                    <input required="" placeholder="" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" id="password" type="password" class="input">
+                    <span>Password</span>
+                </label>
+                <label>
+                    <input required="" placeholder="" [(ngModel)]="confirmPassword" [ngModelOptions]="{standalone: true}" id="confirmPassword" type="password" class="input">
+                    <span>Confirm password</span>
+                </label>
+                <div *ngIf="password !== confirmPassword" class="alert alert-danger">Passwords do not match.</div>
+                <button class="submit">Submit</button>
+                <p class="signin">Already have an account? <a routerLink="/login">Sign In</a></p>
+            </form>
+        </div>
+        <!-- Hero Image -->
+        <div class="flex justify-center items-center p-4 lg:w-1/2">
+            <img class="bounce duration-150" src="../../../assets/images/hero-img.png" alt="">
+        </div>
+    </div>
+</section>

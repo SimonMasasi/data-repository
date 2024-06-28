@@ -1,0 +1,59 @@
+<section class="body-full-color">
+    <!-- <app-nav-bar></app-nav-bar> -->
+    <div class="container overflow-x-auto mx-auto px-4 md:p-0 mt-10 md:mt-20">
+        <div class="flex justify-end">
+            <svg xmlns="http://www.w3.org/2000/svg"  (click)="openAddRoleUserModal()" class="fontSvg m-2" viewBox="0 0 512 512">
+                <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/>
+            </svg>
+        </div>
+        <table class="min-w-full w-full bg-white rounded-lg overflow-hidden">
+            <thead class="bg-gray-800 text-white">
+                <tr>
+                    <th class="py-2 px-4">ID</th>
+                    <th class="py-2 px-4">Username</th>
+                    <th class="py-2 px-4">Email</th>
+                    <th class="py-2 px-4">FirstName</th>
+                    <th class="py-2 px-4">LastName</th>
+                    <th class="py-2 px-4">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td class="py-2 px-4 border border-gray-200">{{user.user.id}}</td>
+                    <td class="py-2 px-4 border border-gray-200">{{user.user.username}}</td>
+                    <td class="py-2 px-4 border border-gray-200">{{user.user.email}}</td>
+                    <td class="py-2 px-4 border border-gray-200">{{user.user.first_name}}</td>
+                    <td class="py-2 px-4 border border-gray-200">{{user.user.last_name}}</td>
+                    <td>
+                        <button class="bg-white-500 hover:bg-red-700 text-black font-bold py-2 px-4 rounded">
+                          remove
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="isAddRoleUserModalOpen" class="modal-overlay fixed inset-0 bg-black opacity-50 z-100"></div>
+<div *ngIf="isAddRoleUserModalOpen" class="modal-container fixed inset-0 flex items-center justify-center z-100">
+    <div class="modal-content bg-white rounded-lg shadow-lg p-8 w-full md:w-1/2 overflow-y-auto max-h-full">
+        <h2 class="text-xl font-semibold mb-8">Add User in this role</h2>
+        <form (submit)="addRoleUser()">
+            <div class="mb-4">
+                <div class="inputs">
+                    <select name="userId" requiredid="user" [(ngModel)]="userId" id="">
+                        <option value="" disabled>Select user</option>
+                        <option *ngFor="let user of availableUsers" value="{{user.id}}">{{user.username}}</option>
+                    </select> 
+                    <label>User </label>
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" onclick="addRoleUser()" mat-button color="primary">Add Role</button>
+                <button mat-button color="primary" (click)="closeModal()">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</section>

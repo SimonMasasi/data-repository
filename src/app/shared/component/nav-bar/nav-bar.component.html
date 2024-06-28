@@ -1,0 +1,290 @@
+<nav *ngIf="!hasDashboard" class="body-full-color">
+  <div
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pt-10"
+  >
+    <!-- Data set repository at the top left -->
+    <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <span
+        class="self-center ml-3 text-2xl text-white font-semibold tracking-wider whitespace-nowrap dark:text-white"
+        >Data set repository</span
+      >
+    </a>
+
+    <!-- Centered navigation links for larger screens -->
+    <div class="hidden md:flex justify-center flex-1">
+      <a
+        routerLink=""
+        class="nav-links block px-4 py-2 text-sm text-white hover:border-b hover:border-gray-300"
+        role="menuitem"
+        >Home</a
+      >
+      <a
+        routerLinkActive="border-b border-gray-300"
+        routerLink="/models-list"
+        class="block px-4 py-2 text-sm text-white hover:border-b hover:border-gray-300"
+        role="menuitem"
+        >Models</a
+      >
+      <a
+        routerLinkActive="border-b border-gray-300 text-blue"
+        routerLink="/datasets-list"
+        class="block px-4 py-2 text-sm text-white hover:border-b hover:border-gray-300"
+        role="menuitem"
+        >Datasets</a
+      >
+      <a
+        routerLinkActive="border-b border-gray-300 text-blue"
+        *ngIf="!isLoggedIn()"
+        routerLink="/register"
+        class="block px-4 py-2 text-sm text-white hover:border-b hover:border-gray-300"
+        role="menuitem"
+        >register</a
+      >
+      <a
+        routerLinkActive="border-b border-gray-300 text-blue"
+        *ngIf="!isLoggedIn()"
+        routerLink="/login"
+        class="block px-4 py-2 text-sm text-white hover:border-b hover:border-gray-300"
+        role="menuitem"
+        >login</a
+      >
+    </div>
+
+    <div class="hidden md:flex items-center dropdown-container">
+      <span
+        (click)="toggleAccountsDropdown($event)"
+        *ngIf="isLoggedIn()"
+        class="text-sm text-white pr-4"
+        >{{ user.username }}</span
+      >
+
+      <!-- Profile image dropdown -->
+      <div class="relative">
+        <button
+          *ngIf="isLoggedIn()"
+          (click)="toggleAccountsDropdown($event)"
+          class="flex items-center focus:outline-none"
+        >
+          <!-- User's profile image -->
+          <img
+            src="../../../../assets/images/3135715.png"
+            alt="User Profile"
+            class="w-8 h-8 rounded-full"
+          />
+        </button>
+
+        <!-- Accounts nested dropdown -->
+        <div
+          *ngIf="isAccountsDropdownOpen"
+          class="absolute right-0 top-full mt-2 w-56 origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          style="z-index: 9"
+        >
+          <div
+            *ngIf="isLoggedIn()"
+            class="py-1"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            <a
+              routerLink="/my-datasets"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              ><i class="fas fa-database mr-2"></i>My Datasets</a
+            >
+            <a
+              routerLink="/dataset-upload"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              ><i class="fas fa-cloud-upload-alt mr-2"></i>Upload Dataset</a
+            >
+            <a
+              routerLink="/model-upload"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              ><i class="fas fa-cloud-upload-alt mr-2"></i>Upload model</a
+            >
+            <a
+              routerLink="/change-password"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              ><i class="fas fa-key mr-2"></i>Change password</a
+            >
+            <button
+              (click)="logout()"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+            >
+              <i class="fas fa-sign-out-alt mr-2"></i>Logout
+            </button>
+          </div>
+          <div
+            *ngIf="!isLoggedIn()"
+            class="py-1"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            <a
+              routerLink="/register"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              ><i class="fas fa-user-plus mr-2"></i>Register</a
+            >
+            <a
+              routerLink="/login"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              ><i class="fas fa-sign-in-alt mr-2"></i>Login</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dropdown for smaller screens -->
+    <div class="flex items-center">
+      <div class="relative md:hidden">
+        <button
+          (click)="toggleDropdown()"
+          class="flex items-center justify-center w-8 h-8 text-white focus:outline-none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          </svg>
+        </button>
+        <!-- Dropdown content -->
+        <div
+          *ngIf="isDropdownOpen"
+          style="z-index: 9"
+          class="absolute right-0 mt-2 w-56 origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+          <div
+            class="py-1"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            <a
+              routerLink=""
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              >Home</a
+            >
+            <a
+              routerLinkActive="border-b border-gray-300"
+              routerLink="/models-list"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              >Models</a
+            >
+            <a
+              routerLinkActive="border-b border-gray-300 text-blue"
+              routerLink="/datasets-list"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              >Datasets</a
+            >
+            <!-- Accounts nested dropdown -->
+            <div class="relative">
+              <span
+                (click)="toggleAccountsDropdown($event)"
+                *ngIf="isLoggedIn()"
+                class="text-sm text-white pr-4"
+                >{{ user.first_name }}</span
+              >
+              <button
+                (click)="toggleAccountsDropdown($event)"
+                class="flex items-center focus:outline-none"
+              >
+                <!-- User's profile image -->
+                <img
+                  src="../../../../assets/images/3135715.png"
+                  alt="User Profile"
+                  class="w-8 h-8 rounded-full"
+                />
+              </button>
+              <div
+                *ngIf="isAccountsDropdownOpen"
+                class="absolute right-0 top-full mt-2 w-56 origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                style="z-index: 9"
+              >
+                <div
+                  *ngIf="isLoggedIn()"
+                  class="py-1"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <a
+                    routerLink="/my-datasets"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                    ><i class="fas fa-database mr-2"></i>My Datasets</a
+                  >
+                  <a
+                    routerLink="/dataset-upload"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                    ><i class="fas fa-cloud-upload-alt mr-2"></i>Upload
+                    Dataset</a
+                  >
+                  <a
+                    routerLink="/model-upload"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                    ><i class="fas fa-cloud-upload-alt mr-2"></i>Upload Model</a
+                  >
+                  <a
+                    routerLink="/change-password"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                    ><i class="fas fa-key mr-2"></i>Change password</a
+                  >
+                  <button
+                    (click)="logout()"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                  >
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                  </button>
+                </div>
+                <div
+                  *ngIf="!isLoggedIn()"
+                  class="py-1"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <a
+                    routerLink="/register"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                    ><i class="fas fa-user-plus mr-2"></i>Register</a
+                  >
+                  <a
+                    routerLink="/login"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                    ><i class="fas fa-sign-in-alt mr-2"></i>Login</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

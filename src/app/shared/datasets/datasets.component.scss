@@ -1,0 +1,61 @@
+.header-back {
+    height: 25vh;
+    width: 100%;
+    color: white;
+    // font: bold 6.5em/2em monospace;
+    background: linear-gradient(to top, #022E51, #022E51), url(../../../assets/images/data.png) no-repeat top center;
+    background-size: cover;
+  }
+
+  .search {
+    background-color: #022E51;
+    color: white;
+  }
+
+  .search:hover {
+    background-color: #022E51;
+  }
+
+  /* Adjust input width for small devices */
+@media only screen and (max-width: 878px) {
+  .search-in{
+    min-width: 300px;
+  }
+  .filters{
+    display: none;
+  }
+  #contentToToggle {
+    // display: block; // Initially hidden
+  }
+  
+  #contentToToggle.visible {
+    display: block; // Style for visible content
+  }  
+  .datasets{
+    display: flex;
+    flex-direction: column;
+  }
+  
+}
+
+/* Adjust input width for larger devices */
+@media only screen and (min-width: 878px) {
+  .search-in{
+    min-width: 300px;
+  }
+  .datasets{
+    margin-left: 17px;
+  }
+  .large-filter{
+    display: none;
+  }
+  .hidden {
+    display: block;
+  }
+}
+.zoom-in {
+  transition: transform 0.3s ease-in-out;
+}
+.zoom-in:hover {
+  transform: scale(1.1);
+}

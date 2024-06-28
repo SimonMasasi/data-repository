@@ -1,0 +1,92 @@
+<!-- user-profile.component.html -->
+
+<div class="container mx-auto px-4 py-8">
+    <!-- User Information -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4">User Information</h2>
+      
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Username -->
+        <div class="text-gray-600">
+          <p><strong>Username:</strong></p>
+        </div>
+        <div>
+          <p class="text-lg font-medium">{{ userProfile?.username }}</p>
+        </div>
+        
+        <!-- Email -->
+        <div class="text-gray-600">
+          <p><strong>Email:</strong></p>
+        </div>
+        <div>
+          <p class="text-lg font-medium">{{ userProfile?.email }}</p>
+        </div>
+        
+        <!-- Age -->
+        <div class="text-gray-600">
+          <p><strong>Age:</strong></p>
+        </div>
+        <div>
+          <p class="text-lg font-medium">{{ userProfile?.age }}</p>
+        </div>
+        
+        <!-- Add more user information fields here -->
+      </div>
+    </div>
+    
+    
+  
+    <!-- Roles -->
+    <div *ngIf="userProfile?.roles.length>0" class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4">Roles</h2>
+      <ul>
+        <li *ngFor="let role of userProfile?.roles" class="mb-2">{{ role.name }}</li>
+      </ul>
+    </div>
+  
+    <!-- Repositories -->
+    <!-- <div *ngIf="userProfile?.repositories.length>0" class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4">Repositories</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div *ngFor="let repository of userProfile?.repositories" class="bg-gray-100 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">{{ repository.name }}</h3>
+          <p><strong>Scope:</strong> {{ repository.scope }}</p>
+        </div>
+      </div>
+    </div> -->
+  
+    <!-- Models -->
+    <div *ngIf="userProfile?.models.length>0" class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4">Models</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div *ngFor="let model of userProfile?.models" class="bg-gray-100 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">{{ model.name }}</h3>
+          <p>{{ model.description }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Datasets -->
+    <div *ngIf="userProfile?.datasets.length > 0" class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4">Datasets</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div *ngFor="let dataset of userProfile?.datasets" class="max-h-40 overflow-hidden bg-gray-100 rounded-lg p-4 cursor-pointer transform hover:scale-105 transition-transform duration-300 ease-in-out">
+          <a [routerLink]="[ '/dashboard/dataset-view/', dataset.id ]">
+            <h3 class="text-xl font-semibold mb-2 line-clamp-1">{{ dataset.title }}</h3>
+            <p class="line-clamp-3">{{ dataset.description }}</p>
+          </a>
+          <div class="flex justify-between items-center mt-4">
+            <div>
+              <span class="text-gray-500 text-sm">{{ dataset.downloads }} <i class="fas fa-solid fa-download mr-1"></i> Downloads</span>
+            </div>
+            <div>
+              <span class="text-gray-500 text-sm">{{ dataset.viewers }} <i class="fas fa-regular fa-eye mr-1"></i> Viewers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
+  

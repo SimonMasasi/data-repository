@@ -1,0 +1,5 @@
+@use '@angular/material/theming';
+
+$my-primary: mat.define-palette(mat.define-palette(mat.$green-palette), 500);  // Example using green-palette
+
+@include mat.all-component-themes($my-primary);

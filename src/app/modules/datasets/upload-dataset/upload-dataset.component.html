@@ -1,0 +1,146 @@
+<header class="header-back">
+  <nav class="">
+    <app-nav-bar></app-nav-bar>     
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pt-10">
+      </div>
+    </nav>
+</header>
+<div class="text-center mt-6 mb-5">
+  <h2 class="text-2xl font-bold mb-4" style="font-family: 'Poppins', sans-serif;">Create a New Dataset Repository</h2>
+</div>
+<mat-stepper #stepper class="mx-80" style="background-color: rgb(255, 252, 252);">
+  <form [formGroup]="firstFormGroup">
+  <mat-step [stepControl]="firstFormGroup" class="pt-12 mx-70" errorMessage="fields are required.">
+      <ng-template matStepLabel>
+        <span [ngStyle]="{'color': isFirstValid() ? 'black' : 'red'}">Create Repository</span>
+      </ng-template>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden p-4" style="background-color: aliceblue;">
+          <label for="name" class="text-gray-700 font-bold mb-2">Author name</label>
+          <input formControlName="firstCtrl1"  required type="text" id="authorName" type="text" placeholder="Enter Your Name" class="w-full px-3 py-2 border focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg bg-gray-300">
+        </div>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden p-4" style="background-color: aliceblue;">
+          <label for="email" class="text-gray-700 font-bold mb-2">Dataset name</label>
+          <input formControlName="firstCtrl2"  required type="text" id="datasetName" type="text" placeholder="Enter YourDataset name" class="w-full px-3 py-2 border focus:ring-blue-500 focus:border-blue-500 text-sm rounded-lg bg-gray-300">
+        </div>
+      </div>
+      
+      <div class="grid grid-rows-1 md:grid-cols-1 gap-4 mb-8 mx-20">
+        <div class="shadow-md overflow-hidden p-4 flex flex-col justify-between">
+          <div class="flex items-center mb-4">
+            <input  checked required type="radio" id="option1" name="option" value="option1" class="w-4 h-4 mr-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-opacity-50">
+            <label for="option1" class="text-gray-700">Public</label>
+          </div>
+          <p class="text-black text-base leading-loose">
+            Anyone on the internet can see this dataset. Only you (personal dataset) or members of your organization (organization dataset) can commit.
+          </p>
+        </div>
+        <div class="shadow-md overflow-hidden p-4 flex flex-col justify-between">
+          <div class="flex items-center mb-4">
+            <input  type="radio" id="option2" name="option" value="option2" class="w-4 h-4 mr-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-opacity-50">
+            <label for="option2" class="text-gray-700">Private</label>
+          </div>
+          <p class="text-black text-base leading-loose">
+            Only you (personal dataset) or members of your organization (organization dataset) can see and commit to this dataset.
+          </p>
+        </div>
+      </div>
+      
+      
+      <div class="flex justify-end mt-4">
+        <button mat-button matStepperNext>
+          <span class="px-4 py-2 rounded shadow-sm hover:bg-green-200" style="background-color: #007057;">Next</span>
+        </button>
+      </div>
+  </mat-step>
+
+<div [formGroup]="secondFormGroup">
+  <mat-step [stepControl]="secondFormGroup" errorMessage="file required." class="pt-8 pb-8" style="background-color: aliceblue;">
+    <!-- <form [formGroup]="secondFormGroup"> -->
+      <ng-template matStepLabel>
+        <span [ngStyle]="{'color': isSecondValid() ? 'black' : 'red'}">Upload Files</span>
+      </ng-template>
+
+      <div class="border-2 border-gray-300 border-dashed rounded-md p-8 mb-4 flex flex-col justify-center items-center mx-auto" style="background-color: aliceblue;">
+        <h3 class="text-lg font-medium text-center mb-4">Drag and Drop Files Here</h3>
+          <p class="text-sm text-gray-500 text-center mb-4">or</p>
+          <label for="file-upload" class="px-4 py-2 rounded-lg bg-blue-500 text-white cursor-pointer">Browse Files</label>
+          <input required formControlName="secondCtrl"  type="file" id="file-upload" class="w-full h-full opacity-0 cursor-pointer" data-fp-extensions="JPG PNG PDF" data-fp-max-size="5mb" data-fp-max-files="5" />
+          <ul id="file-list" class="text-gray-600 mt-4 list-none pl-4"></ul>
+      </div>
+      <!-- <ul id="fileList" class="text-sm text-gray-600 mb-4">
+         File list items will be dynamically added here -->
+      <!-- </ul> -->
+
+      <div style="width: 100%; display:flex; justify-content: space-between; bottom: 0" class="mt-8">
+      
+        <button matStepperPrevious>
+          <span class="text-white px-4 py-2 rounded shadow-sm hover:bg-green-200" style="background-color: #007057;">Back</span>
+        </button>
+
+        <button mat-button matStepperNext>
+          <span matStepperNext class="px-4 py-2 rounded shadow-sm hover:bg-green-200" style="background-color: #007057;">Next</span>
+        </button>
+      </div>
+  </mat-step>
+</div>
+
+<div  [formGroup]="thirdFormGroup">
+  <mat-step [stepControl]="thirdFormGroup" errorMessage="file required." class="pt-8 pb-8" style="background-color: aliceblue;">
+    <!-- <form [formGroup]="secondFormGroup"> -->
+      <ng-template matStepLabel>
+        <span [ngStyle]="{'color': isThirdValid() ? 'black' : 'red'}">Other Information</span>
+      </ng-template>
+    <div class="m-10">
+      <h1 class="text-center text-gray">Additional information about  your datasets</h1>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+      <div class="rounded-lg shadow-md overflow-hidden p-4">
+        <label for="description" class="text-gray-700 font-bold mb-2">About the data (Description)</label>
+        <textarea  formControlName="thirdCtrl1" required rows="" class="w-full p-4 resize-none border-b border-gray-300 focus:outline-none focus:border-blue-500 focus:border-b-2 transition duration-300 ease-in-out" style="background-color: aliceblue;"></textarea>
+      </div>
+      <div class="rounded-lg shadow-md overflow-hidden p-4">
+        <label for="name" class="text-gray-700 font-bold mb-2">Category</label>
+        <input  formControlName="thirdCtrl2" required type="text" class="w-full inputs pl-4 border-b border-gray-300 focus:outline-none focus:border-blue-500 focus:border-b-2 transition duration-300 ease-in-out" style="background-color: aliceblue;">
+      </div>
+      <div class="rounded-lg shadow-md overflow-hidden p-4">
+        <label for="email" class="text-gray-700 font-bold mb-2">Title</label>
+        <input  formControlName="thirdCtrl3" required type="text" class="w-full inputs pl-4 border-b border-gray-300 focus:outline-none focus:border-blue-500 focus:border-b-2 transition duration-300 ease-in-out" style="background-color: aliceblue;">
+      </div>
+    </div>
+    
+    
+    
+    <div style="width: 100%; display:flex; justify-content: space-between; bottom: 0" class="mt-8">
+      <button matStepperPrevious>
+        <span class="text-white px-4 py-2 rounded shadow-sm hover:bg-green-200" style="background-color: #007057;">Back</span>
+      </button>
+      <button mat-button>
+        <span (click)="stepper.reset()" class=" bg-green-100 px-4 py-2 rounded shadow-sm hover:bg-green-200">reset</span>
+      </button>
+      <button type="submit" mat-button matStepperNext>
+        <span class="px-4 py-2 rounded shadow-sm hover:bg-green-200" style="background-color: #007057;">Submit</span>
+      </button>
+    </div>
+  </mat-step>
+</div>
+  </form>
+</mat-stepper>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const fileList = document.getElementById('fileList');
+
+  fileInput.addEventListener('change', handleFiles);
+
+  function handleFiles() {
+      const files = fileInput.files;
+      fileList.innerHTML = ''; // Clear the previous file list
+
+      for (let i = 0; i < files.length; i++) {
+          const listItem = document.createElement('li');
+          listItem.textContent = files[i].name;
+          fileList.appendChild(listItem);
+      }
+  }
+</script>

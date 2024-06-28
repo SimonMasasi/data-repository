@@ -1,0 +1,212 @@
+<section class="body-full-color overflow-x-hidden">
+  <app-nav-bar></app-nav-bar>
+  <div
+    class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 md:p-0 mt-10 md:mt-20"
+  >
+    <div class="text-center md:text-left md:w-1/2 mb-10">
+      <div class="mb-8">
+        <p
+          class="text-white text-4xl md:text-6xl font-bold tracking-widest mb-2 animate__animated animate__fadeInLeft"
+        >
+          WELCOME TO
+        </p>
+        <p
+          class="text-white text-4xl md:text-6xl font-bold tracking-widest animate__animated animate__fadeInLeft"
+        >
+          Data set REPOSITORY
+        </p>
+      </div>
+      <p
+        class="text-gray-300 tracking-wider mb-8 md:mb-10 animate__animated animate__fadeInLeft"
+      >
+        Click the button below to start using our service
+      </p>
+      <div
+        class="flex justify-center md:justify-start animate__animated animate__fadeInLeft"
+      >
+        <button
+          routerLink="/login"
+          type="button"
+          class="text-green-900 font-medium rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-lg py-2 px-7 text-center bg-white shadow-lg"
+        >
+          Get started
+        </button>
+      </div>
+    </div>
+    <div
+      class="flex justify-center items-center md:w-1/2 animate__animated animate__fadeInRight"
+    >
+      <img
+        class="w-full md:w-auto bounce duration-150"
+        src="../../../assets/images/hero-img.png"
+        alt=""
+      />
+    </div>
+  </div>
+</section>
+
+<section class="container mx-auto py-12" data-aos="fade-up">
+  <div class="grid grid-cols-1 gap-8 p-10">
+    <div
+      class="bg-white rounded-lg shadow-md overflow-hidden relative"
+      data-aos="fade-up"
+    >
+      <div class="p-8">
+        <h2 class="text-xl font-bold mb-4">About \ Data set repository</h2>
+        <p>
+          <i>
+            The Data set Repository is an innovative platform designed to cater
+            to the needs of data science enthusiasts, researchers, and
+            professionals. Our platform serves as a comprehensive repository for
+            a wide range of data science resources, including datasets,
+            pre-trained models, and tools for natural language processing
+            tasks.<br /><br />
+
+            At the heart of our platform are data science competitions, where
+            users can participate, collaborate, and showcase their skills in
+            real-world problem-solving scenarios. Whether you're a seasoned data
+            scientist or just starting your journey, our competitions provide a
+            unique opportunity to test your abilities, learn from others, and
+            contribute to the advancement of the field.
+          </i>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="container mx-auto py-12" data-aos="fade-up">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 p-10">
+    <div
+      class="flex flex-wrap col-span-1 justify-center pt-10 grid grid-cols-1 md:grid-cols-1"
+    >
+      <p class="text-center text-gray-600 mb-4">
+        Explore real-time statistics of the platform:
+      </p>
+      <div
+        class="m-4 p-6 bg-blue-500 rounded-full text-white shadow-lg flex items-center justify-center md:w-auto md:h-auto"
+        data-aos="fade-up"
+      >
+        <div class="text-center">
+          <h2 class="text-3xl font-bold">Total Downloads</h2>
+          <p class="text-xl">
+            <span id="totalDownloadsCount">
+              <h1
+                [countUp]="landingData.total_downloads"
+                [duration]="2000"
+              ></h1>
+            </span>
+          </p>
+        </div>
+      </div>
+      <div
+        class="m-4 p-6 bg-green-500 rounded-full text-white shadow-lg flex items-center justify-center md:w-auto md:h-auto"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <div class="text-center">
+          <h2 class="text-3xl font-bold">Total Viewers</h2>
+          <p class="text-xl">
+            <span id="totalViewersCount">
+              <h1 [countUp]="landingData.total_viewers" [duration]="2000"></h1>
+            </span>
+          </p>
+        </div>
+      </div>
+      <div
+        class="m-4 p-6 bg-yellow-500 rounded-full text-white shadow-lg flex items-center justify-center md:w-auto md:h-auto"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <div class="text-center">
+          <h2 class="text-3xl font-bold">Total Visitors</h2>
+          <p class="text-xl">
+            <span id="totalVisitorsCount">
+              <h1 [countUp]="landingData.total_users" [duration]="2000"></h1>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-2">
+      <p class="text-center text-gray-600 mb-4">
+        Visualize data trends with our interactive line graph:
+      </p>
+      <div
+        class="flex flex-wrap justify-center pt-10 grid grid-cols-1 md:grid-cols-1"
+      ></div>
+      <div class="gap-4">
+        <app-line-graph
+          [labels]="getLabels()"
+          [counts]="getCounts()"
+        ></app-line-graph>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-gray-900 text-white p-8 relative">
+  <!-- Wave pattern -->
+  <svg
+    class="absolute bottom-0 left-0 w-full"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1440 320"
+  >
+    <path
+      fill="#022E51"
+      fill-opacity="1"
+      d="M0,96L80,96C160,96,320,96,480,106.7C640,117,800,139,960,144C1120,149,1280,139,1360,133.3L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+    ></path>
+  </svg>
+  <div
+    class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10"
+  >
+    <!-- Contact Information -->
+    <div>
+      <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+      <p>Email: {{email}}</p>
+      <p>Phone: +255742107833</p>
+      <p>Address: 123 Iyumbu, Dododma, Tanzania</p>
+    </div>
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+      <ul>
+        <li><a href="#" class="text-white hover:text-gray-200">Home</a></li>
+        <li><a href="#" class="text-white hover:text-gray-200">About Us</a></li>
+        <li><a href="#" class="text-white hover:text-gray-200">Services</a></li>
+        <li><a href="#" class="text-white hover:text-gray-200">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-lg font-bold mb-4">Connect with Us</h3>
+      <ul class="flex space-x-4">
+        <li>
+          <a href="#" class="text-white hover:text-gray-200"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-200"
+            ><i class="fab fa-twitter"></i
+          ></a>
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-200"
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-200"
+            ><i class="fab fa-linkedin-in"></i
+          ></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr class="my-8 border-gray-600" />
+  <div class="text-center z-index-50">
+    <p>&copy; 2024 . All rights reserved.</p>
+  </div>
+</footer>

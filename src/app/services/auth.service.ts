@@ -34,10 +34,8 @@ export class AuthService {
     return this.http.post<any>(this.url, userData)
     .pipe(
       map(response => {
-        this.storeEmail(response.email)
         return response;
       }),
-      catchError(this.handleError)
     );
   }
 
@@ -63,6 +61,9 @@ export class AuthService {
     return this.http.post<any>(this.url, { username, password })
       .pipe(
         map(response => {
+          if (response?.error){
+            return response
+          }
           this.storeUserData(response);
           return response;
         }),
@@ -129,6 +130,8 @@ export class AuthService {
     // Return an observable with a user-facing error message.
     return throwError('Something bad happened; please try again later.');
   }
+
+
 
   hasRole(roleName: string): boolean {
     const userRolesString = localStorage.getItem('roles');

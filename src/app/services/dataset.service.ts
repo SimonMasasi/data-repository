@@ -56,7 +56,11 @@ getAllDatasets(page: number, query: any, categories: any, myDataset: boolean): O
   getDatasetDownloadsPerDay(datasetId: number): Observable<any> {
     return this.http.get(`${this.APIUrl}/dataset-downloads/${datasetId}/`);
   }
-  
+
+  getRegions(){
+    this.url = this.APIUrl + "/auth/region/";
+    return this.http.get<any>(this.url)
+  }
 
   downloadFile(fileId: number) {
     return this.http.get(`${this.APIUrl}/files/${fileId}/download/`, {

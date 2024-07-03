@@ -1,45 +1,42 @@
-
-import { Component, Input } from '@angular/core';
-import { DatasetService } from 'src/app/services/dataset.service';
-import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { saveAs } from 'file-saver';
+import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ModelService } from 'src/app/services/model.service';
+import { UserService } from 'src/app/services/user.service';
+import { saveAs } from 'file-saver';
 
-@Injectable({
-  providedIn: 'root'
-})
 
 @Component({
-  selector: 'app-datasets',
-  templateUrl: './datasets.component.html',
-  styleUrl: './datasets.component.scss'
+  selector: 'app-my-models',
+  templateUrl: './my-models.component.html',
+  styleUrl: './my-models.component.scss'
 })
-export class DatasetsComponent {
-  @Input() datasets: any[] = [];
-  @Input() hasDashboard: boolean = false;
+
+
+export class MyModelsComponent {
   downloadError = '';
   searchBackendText='';
   searchText='';
-  originalDatasets=this.datasets;
+  models: any;
+  originalModels: any;
   error: any;
   isLoading = false;
   message:any;
   selectedSortColumn: any;
-  sortColumns=['title', 'domain', 'downloads', 'viewers', 'Latest'];
+  hasDashboard: any;
+  sortColumns=['title', 'domain', 'downloads', 'viewers', 'Latest']
   isClicked=false;
   currentPage = 1;
   totalPages = 1;
   categories: any;
   checkedCategories: string[] = []; 
   isDownloading=false;
-  datasetNo:any;
+  modelNo:any;
   isUserModalOpen=false;
   loggedIn = this.authService.isLoggedIn();
   constructor(
-    private datasetService: DatasetService,
+    private modelService: ModelService,
     private toastr: ToastrService,
     private userServise: UserService,
     private authService: AuthService
@@ -54,19 +51,20 @@ export class DatasetsComponent {
   ngOnInit(): void {
     this.getCategories();
     this.hasDashboard=this.userServise.checkIfFullLayoutLoaded();
-    this.originalDatasets=this.datasets;
-    console.log(this.datasets);
+    this.loadModels();
+    
   }
 
-  loadDatasets(){
-    this.datasetService.getAllDatasets(this.currentPage, this.searchBackendText, this.checkedCategories, false)
-    .subscribe(datasets => {
-      this.datasetNo=datasets.count;
-      this.datasets = datasets.results;
-      this.originalDatasets=datasets.results;
-      this.sortDatasets()
+  loadModels(){
+    this.modelService.getAllMyModels(this.currentPage, this.searchBackendText, this.checkedCategories)
+    .subscribe(models => {
+      this.modelNo=models.count;
+      this.models = models.results;
+      console.log(this.models);
+      this.originalModels=models.results;
+      this.sortModels()
       this.isLoading = false;
-      this.totalPages = Math.ceil(datasets.count / 15);
+      this.totalPages = Math.ceil(models.count / 15);
       console.log(this.totalPages+"Pages"); // Adjust this if page size varies
     }, error => {
       this.error = error;
@@ -77,33 +75,32 @@ export class DatasetsComponent {
   onPageChange(pageNumber: number) {
     console.log(pageNumber+"Changed");
     this.currentPage = pageNumber;
-    this.loadDatasets();
+    this.loadModels();
   }
 
     showSuccess() {
-      this.toastr.success('dataset zip download successfully', 'file download dialogue');
+      this.toastr.success('model zip download successfully', 'file download dialogue');
     }
 
   getCategories(){
-    this.datasetService.getDomains().subscribe(categories=>{
+    this.modelService.getDomains().subscribe(categories=>{
       this.categories=categories
     })
   }
-
   closeModal(){
     this.isUserModalOpen=false;
   }
-  downloadDataset(dataset: any) {
+  downloadModel(model: any) {
     if(!this.authService.isLoggedIn()){
       this.isUserModalOpen=true;
       return
     }
     this.isDownloading=true;
-    this.datasetService.updateDownloads(dataset.id);
-    this.datasetService.downloadDataset(dataset.id)
+    this.modelService.updateDownloads(model.id);
+    this.modelService.downloadModel(model.id)
       .subscribe(
         (response: HttpResponse<Blob>) => {
-          const filename = response.headers.get('filename') || dataset.repository.name +"-"+ dataset.title;
+          const filename = response.headers.get('filename') || model.repository.name +"-"+ model.title;
         
           // Ensure response.body is a Blob before using saveAs
           if (response.body) {
@@ -116,17 +113,17 @@ export class DatasetsComponent {
           }
         },
         (error) => {
-          this.downloadError = 'Error downloading dataset: ' + error.message;
+          this.downloadError = 'Error downloading model: ' + error.message;
         }
       );
   }
 
-  filterDatasets(): void {
-    // Check if originalDatasets is an array before filtering
-    if (Array.isArray(this.originalDatasets)) {
-      this.datasets = this.originalDatasets.filter((dataset: { domain: { name: string; }; }) => this.checkedCategories.includes(dataset.domain.name));
+  filterModels(): void {
+    // Check if originalModels is an array before filtering
+    if (Array.isArray(this.originalModels)) {
+      this.models = this.originalModels.filter((model: { domain: { name: string; }; }) => this.checkedCategories.includes(model.domain.name));
     } else {
-      console.error("originalDatasets is not an array.");
+      console.error("originalModels is not an array.");
     }
   }
   
@@ -145,19 +142,19 @@ onCategoryChange(category: string, event: any): void {
     }
   }
   if(this.checkedCategories.length==0){
-    this.datasets=this.originalDatasets;
+    this.models=this.originalModels;
     return
   }
-  this.filterDatasets(); // Filter datasets based on checked categories
+  this.filterModels(); // Filter models based on checked categories
 }
 
   
-  sortDatasets() {
+  sortModels() {
     if (!this.selectedSortColumn) {
       return; // No sorting criteria
     }
     
-    this.datasets.sort((a: { title: string; domain: { name: string; }; downloads: number; created_at: string | number | Date; viewers: number; }, b: { title: any; domain: { name: any; }; downloads: number; created_at: string | number | Date; viewers: number; }) => {
+    this.models.sort((a: { title: string; domain: { name: string; }; downloads: number; created_at: string | number | Date; viewers: number; }, b: { title: any; domain: { name: any; }; downloads: number; created_at: string | number | Date; viewers: number; }) => {
       const sortField = this.selectedSortColumn;
   
       if (sortField === 'title') {
@@ -180,16 +177,16 @@ onCategoryChange(category: string, event: any): void {
   }
   
 
-  searchDatasets() {
+  searchModels() {
     console.log(this.searchText);
     if (!this.searchText) {
-      this.datasets = [...this.originalDatasets]; // Reset to original data
+      this.models = [...this.originalModels]; // Reset to original data
       return;
     }
-    this.datasets = this.originalDatasets.filter((dataset: { title: string; domain: { name: string; }; }) => {
+    this.models = this.originalModels.filter((model: { title: string; domain: { name: string; }; }) => {
       const searchTerm = this.searchText.toLowerCase();
-      return dataset.title.toLowerCase().includes(searchTerm) ||
-             dataset.domain.name.toLowerCase().includes(searchTerm)
+      return model.title.toLowerCase().includes(searchTerm) ||
+             model.domain.name.toLowerCase().includes(searchTerm)
     });
   }
 

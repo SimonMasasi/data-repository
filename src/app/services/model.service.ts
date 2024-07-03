@@ -30,6 +30,15 @@ export class ModelService {
     );
   }
 
+
+  getAllMyModels(page: number, query: any, categories: any): Observable<any> {
+    this.url = this.APIUrl + "/model/list/";
+    return this.http.get<any>(`${this.url}?page=${page}&query=${query}&categories=${categories}&my_model=${true}`).pipe(
+      map((response: { results: any; }) => response.results)
+    );
+  }
+
+
   getFeedbacks() {
     this.url = this.APIUrl + "/model/popular_models/";
     return this.http.get<any>(this.url)
@@ -37,6 +46,12 @@ export class ModelService {
 
   getPopularModels(){
     this.url = this.APIUrl + "/model/popular_models/";
+    return this.http.get<any>(this.url)
+  }
+
+
+  getRegions(){
+    this.url = this.APIUrl + "/auth/region/";
     return this.http.get<any>(this.url)
   }
   

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ModelListComponent } from './model-list/model-list.component';
 import { ModelUploadComponent } from './model-upload/model-upload.component';
 import { ModelViewComponent } from './model-list/model-view/model-view.component';
+import { MyModelsComponent } from './my-models/my-models.component';
 const routes: Routes = [
   {
     path:"models-list",
@@ -16,6 +17,10 @@ const routes: Routes = [
     path: "model-view/:id",
     component: ModelViewComponent,
   },
+  {
+    path:"my-models",
+    component:MyModelsComponent,
+  }
 ];
 
 @NgModule({

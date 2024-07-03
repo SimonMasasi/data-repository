@@ -35,6 +35,7 @@ export class ModelListComponent {
   categories: any;
   checkedCategories: string[] = []; 
   isDownloading=false;
+  loggedIn = this.authService.isLoggedIn();
   modelNo:any;
   isUserModalOpen=false;
   constructor(

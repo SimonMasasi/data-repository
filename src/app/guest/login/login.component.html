@@ -9,9 +9,10 @@
                     <p class="title">Login</p>
                     <p class="message">Sign in to access your account.</p>
                     <label>
-                        <input required="" placeholder="" [(ngModel)]="credentials.username" name="username" type="text" class="input">
+                        <input required="" placeholder="" [(ngModel)]="credentials.username" name="username" type="text" class="input"  (focusout)="onFocusOutEvent($event)">
                         <span>Email</span>
                     </label>
+                        <span class=" text-red-600">{{emailErrors}}</span>
                     <label>
                         <input required="" placeholder="" [(ngModel)]="credentials.password" name="password" type="password" class="input">
                         <span>Password</span>

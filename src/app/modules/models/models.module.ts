@@ -18,12 +18,14 @@ import { ModelListComponent } from './model-list/model-list.component';
 import { ModelUploadComponent } from './model-upload/model-upload.component';
 import { ModelsRoutingModule } from './models-routing.module';
 import { ModelViewComponent } from './model-list/model-view/model-view.component';
+import { MyModelsComponent } from './my-models/my-models.component';
 
 @NgModule({
   declarations: [
     ModelListComponent,
     ModelUploadComponent,
-    ModelViewComponent
+    ModelViewComponent,
+    MyModelsComponent,
   ],
   imports: [
     CommonModule,

@@ -15,16 +15,23 @@ export class ModelUploadComponent implements OnInit {
   private fileData: FileList = new DataTransfer().files;
   selectedFiles: File[] = [];
   selectedFile: any;
-
+  submitMessageForm = {
+    country: {
+      id:1,
+      name:"select county"
+    },
+  };
   repo_name: any;
   email: any;
   scope: any;
   files: any;
   description: any;
   title: any;
+  chatModelIsOpen=true;
   domain: any;
   domains: any;
   tags = new FormControl<string[] | null>(null);
+  regions :any;
   max = 5;
   constructor(
     private _formBuilder: FormBuilder,
@@ -37,6 +44,11 @@ export class ModelUploadComponent implements OnInit {
     this.modelUploadService.getDomains().subscribe(response=>{
       this.domains=response;
     })
+
+    this.modelUploadService.getRegions().subscribe(response=>{
+      this.regions= response;
+    })
+
   }
 
   showSuccess() {
@@ -111,6 +123,20 @@ export class ModelUploadComponent implements OnInit {
   onFileSelected(event: any) {
     this.selectedFile = event.target.files;
     this.addFile(this.selectedFile);
+  }
+
+
+  SubmitCountry():void{
+    if(this.submitMessageForm.country?.name.length==0){
+      this.toastr.warning("please select desired country")
+      return;
+    }
+    if(this.submitMessageForm.country?.name.toLocaleLowerCase()!="tanzania"){
+      this.toastr.error("sorry ony tanzania related models are allowed")
+      this.router.navigate(['/my-models'])
+    }
+    this.chatModelIsOpen=false;
+
   }
   
   addFile(files: any) {

@@ -86,7 +86,8 @@ export class AuthService {
   }
 
   private storeUserData(data: LoginResponse) {
-    localStorage.setItem('user', JSON.stringify(data)); // Store user data
+    localStorage.setItem('user', JSON.stringify(data));
+    localStorage.setItem('email', data.email);  // Store user data
     localStorage.setItem('token', data.token); // Store token separately for security
     localStorage.setItem('roles', JSON.stringify(data.roles));
   }

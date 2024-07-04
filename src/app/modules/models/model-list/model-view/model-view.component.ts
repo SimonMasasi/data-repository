@@ -25,6 +25,12 @@ export class ModelViewComponent {
   submitMessageForm = {
     message: '',
   };
+  submitUserForm ={
+    userId:{
+      id:null
+    }
+  };
+  canUserShare:boolean=false;
   value:any;
   chat_messages :any;
   chatModelIsOpen=false;
@@ -38,7 +44,9 @@ export class ModelViewComponent {
   confirmDeleteId: number | null = null;
   confirmUpdate: any|null=null;
   file: File|any;
+  chatMyOtherModelIsOpen=false
   user:any;
+  allUsers:any;
   data_subscribe:any;
   folders: any[] = [];
   files: File[] = [];
@@ -69,6 +77,7 @@ isUserModalOpen=false;
           const parsedData = data as ModelDetailsResponse;
           this.model = parsedData.model;
           this.modelFiles = parsedData.files;
+          this.canUserShare = localStorage.getItem("email")==parsedData.model.repository.owner.email
         });
     });
 
@@ -84,6 +93,10 @@ isUserModalOpen=false;
 
     this.getDownloadsData();
     this.updateModelViewers();
+    this.modelService.getAllUsers().subscribe((response)=>{
+      this.allUsers = response
+    })
+
 
   }
 
@@ -103,6 +116,31 @@ isUserModalOpen=false;
         console.error('Error fetching file', error);
       }
     );
+  }
+
+
+
+  SubmitCountry():void{
+    if(this.submitUserForm.userId.id==null){
+      this.toastr.warning("please select desired user")
+      return;
+    }
+
+    this.modelService.createNewModelUser(this.modelId , this.submitUserForm.userId.id).subscribe((response)=>{
+      if(response?.error){
+        this.toastr.error("problem ocurred while adding user")
+        return
+      }
+      this.toastr.success("Model shared successfully ")
+    })
+
+    this.chatMyOtherModelIsOpen=false;
+
+  }
+
+
+  openTheOtherModel(){
+    this.chatMyOtherModelIsOpen=true
   }
   
   toggleFolder(folder: any) {

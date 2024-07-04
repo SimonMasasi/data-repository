@@ -23,7 +23,7 @@ export class DatasetsComponent {
   downloadError = '';
   searchBackendText='';
   searchText='';
-  originalDatasets=this.datasets;
+  originalDatasets:any=[];
   error: any;
   isLoading = false;
   message:any;
@@ -55,12 +55,13 @@ export class DatasetsComponent {
     this.getCategories();
     this.hasDashboard=this.userServise.checkIfFullLayoutLoaded();
     this.originalDatasets=this.datasets;
-    console.log(this.datasets);
+    this.loadDatasets();
   }
 
   loadDatasets(){
     this.datasetService.getAllDatasets(this.currentPage, this.searchBackendText, this.checkedCategories, false)
     .subscribe(datasets => {
+      console.log("datasets" , datasets)
       this.datasetNo=datasets.count;
       this.datasets = datasets.results;
       this.originalDatasets=datasets.results;
@@ -123,6 +124,7 @@ export class DatasetsComponent {
 
   filterDatasets(): void {
     // Check if originalDatasets is an array before filtering
+    console.log("original datasets",this.originalDatasets)
     if (Array.isArray(this.originalDatasets)) {
       this.datasets = this.originalDatasets.filter((dataset: { domain: { name: string; }; }) => this.checkedCategories.includes(dataset.domain.name));
     } else {

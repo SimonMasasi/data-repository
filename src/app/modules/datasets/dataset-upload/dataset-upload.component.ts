@@ -14,7 +14,13 @@ export class DatasetUploadComponent implements OnInit {
   private fileData: FileList = new DataTransfer().files;
   selectedFiles: File[] = [];
   selectedFile: any;
-
+  submitMessageForm = {
+    country: {
+      id:1,
+      name:"none"
+    },
+  };
+  chatModelIsOpen=true;
   repo_name: any;
   email: any;
   scope: any;
@@ -23,6 +29,7 @@ export class DatasetUploadComponent implements OnInit {
   title: any;
   domain: any;
   domains: any;
+  regions:any;
   tags = new FormControl<string[] | null>(null);
   max = 5;
   constructor(
@@ -36,6 +43,10 @@ export class DatasetUploadComponent implements OnInit {
     this.datasetUploadService.getDomains().subscribe(response=>{
       this.domains=response;
     })
+
+    this.datasetUploadService.getRegions().subscribe(response=>{
+      this.regions= response;
+    })
   }
 
   showSuccess() {
@@ -45,6 +56,21 @@ export class DatasetUploadComponent implements OnInit {
   showFailure() {
     this.toastr.error('Dataset not uploaded enter the valid data', 'upload status');
   }
+
+
+  SubmitCountry():void{
+    if(this.submitMessageForm.country?.name=="none"){
+      this.toastr.warning("please select desired country")
+      return;
+    }
+    if(this.submitMessageForm.country?.name.toLocaleLowerCase()!="tanzania"){
+      this.toastr.error("sorry only Tanzania related models are allowed")
+      this.router.navigate(['/my-datasets'])
+    }
+    this.chatModelIsOpen=false;
+
+  }
+
   onSubmit() {
     console.log("Submission started")
     if (this.isFirstValid() && this.isSecondValid() && this.isThirdValid() && this.description != '') {

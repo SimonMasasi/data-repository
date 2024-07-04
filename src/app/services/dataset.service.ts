@@ -53,6 +53,33 @@ getAllDatasets(page: number, query: any, categories: any, myDataset: boolean): O
   }
 
 
+
+  getAllUsers(){
+    this.url = this.APIUrl + "/auth/all-users/";
+    return this.http.get<any>(this.url)
+  }
+
+
+  createNewDataUser(datasetId: number , userId:number): Observable<any> {
+    const token = localStorage.getItem('token'); // Retrieve token from local storage
+    if (!token) {
+      return throwError('No token found'); // Handle case where token is not available
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });
+
+    return this.http.post<any>(`${this.APIUrl}/auth/share_data_set/`, { dataset_id: datasetId , user_id:userId }, { headers: headers })
+      .pipe(
+        catchError(error => {
+          return throwError(error); // Handle error
+        })
+      );
+  }
+
+
+
   getDatasetDownloadsPerDay(datasetId: number): Observable<any> {
     return this.http.get(`${this.APIUrl}/dataset-downloads/${datasetId}/`);
   }

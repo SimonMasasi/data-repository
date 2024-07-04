@@ -32,6 +32,7 @@ export class DatasetsListComponent {
   currentPage = 1;
   totalPages = 1;
   categories: any;
+  loggedIn = this.authService.isLoggedIn();
   checkedCategories: string[] = []; 
   isDownloading=false;
   datasetNo:any;

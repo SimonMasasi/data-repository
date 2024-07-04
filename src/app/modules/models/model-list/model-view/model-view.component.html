@@ -14,13 +14,13 @@
 <div class="grid md:grid-cols-1 gap-4">
   <div class="col-span-1 flex justify-end mr-16 mt-10">
     <button
-      *ngIf="isLoggedIn()"
+      *ngIf="canUserShare"
       matTooltip="Upvote"
       class="px-2 mr-2 py-1 rounded shadow-sm download-btn"
-      (click)="upvoteModel(model.id)"
+      (click)="openTheOtherModel()"
     >
-      <span class="fas fa-solid fa-notes-medical mr-2"></span>Upvotes
-      <span></span>{{ model.votes_count }}
+      <span class="fas fa-solid fa-notes-medical mr-2"></span>Share
+      <span></span>
     </button>
     <button
       *ngIf="isLoggedIn()"
@@ -360,5 +360,50 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+
+
+
+<div
+  *ngIf="chatMyOtherModelIsOpen"
+  class="modal-overlay fixed inset-0 bg-black opacity-50 z-50"
+></div>
+<div
+  *ngIf="chatMyOtherModelIsOpen"
+  class="modal-container fixed inset-0 flex items-center justify-center z-50"
+>
+  <div
+    class="modal-content bg-white rounded-lg shadow-lg p-8 w-3/4 model-white"
+  >
+    <div class="max-w-md mx-auto bg-white overflow-hidden model-white">
+      <h2 class="text-lg font-semibold text-zinc-800">
+        Select Desired user to share with
+      </h2>
+    </div>
+
+    <form class="form" (ngSubmit)="SubmitCountry()">
+      <select
+        required
+        placeholder="type message"
+        [(ngModel)]="submitUserForm.userId"
+        name="message"
+        class="flex-1 p-2 border rounded-lg text-sm w-full my-2"
+      >
+        <option value="" disabled>Choose a user</option>
+        <option *ngFor="let user of allUsers" [ngValue]="user">
+          {{ user?.email }}
+        </option>
+      </select>
+      <button
+        type="submit"
+        id="myinput"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1.5 px-3 rounded-lg transition duration-300 ease-in-out text-sm mx-2"
+      >
+        select
+      </button>
+    </form>
   </div>
 </div>

@@ -31,9 +31,31 @@ export class ModelService {
   }
 
 
+  getToken(){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`,
+    });
+    return {"headers":headers,  "token":token}
+  }
+
+
+  getAllUsers(){
+    this.url = this.APIUrl + "/auth/all-users/";
+    return this.http.get<any>(this.url)
+  }
+
+
+
   getAllMyModels(page: number, query: any, categories: any): Observable<any> {
+    const token = this.getToken().token;
+    const headers = this.getToken().headers;
+    let options = {};
+    if (token && headers) {
+      options = { headers: headers };
+    }
     this.url = this.APIUrl + "/model/list/";
-    return this.http.get<any>(`${this.url}?page=${page}&query=${query}&categories=${categories}&my_model=${true}`).pipe(
+    return this.http.get<any>(`${this.url}?page=${page}&query=${query}&categories=${categories}&my_model=${true}` , options=options).pipe(
       map((response: { results: any; }) => response.results)
     );
   }
@@ -101,6 +123,26 @@ export class ModelService {
     });
 
     return this.http.post<any>(`${this.APIUrl}/auth/get_model_chat_messages/`, { model_id: modelId }, { headers: headers })
+      .pipe(
+        catchError(error => {
+          return throwError(error); // Handle error
+        })
+      );
+  }
+
+
+
+  createNewModelUser(modelId: number , userId:number): Observable<any> {
+    const token = localStorage.getItem('token'); // Retrieve token from local storage
+    if (!token) {
+      return throwError('No token found'); // Handle case where token is not available
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });
+
+    return this.http.post<any>(`${this.APIUrl}/auth/share_model/`, { model_id: modelId , user_id:userId }, { headers: headers })
       .pipe(
         catchError(error => {
           return throwError(error); // Handle error

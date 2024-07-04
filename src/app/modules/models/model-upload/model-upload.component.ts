@@ -18,7 +18,7 @@ export class ModelUploadComponent implements OnInit {
   submitMessageForm = {
     country: {
       id:1,
-      name:"select county"
+      name:"none"
     },
   };
   repo_name: any;
@@ -127,12 +127,12 @@ export class ModelUploadComponent implements OnInit {
 
 
   SubmitCountry():void{
-    if(this.submitMessageForm.country?.name.length==0){
+    if(this.submitMessageForm.country?.name=="none"){
       this.toastr.warning("please select desired country")
       return;
     }
     if(this.submitMessageForm.country?.name.toLocaleLowerCase()!="tanzania"){
-      this.toastr.error("sorry ony tanzania related models are allowed")
+      this.toastr.error("sorry only Tanzania related models are allowed")
       this.router.navigate(['/my-models'])
     }
     this.chatModelIsOpen=false;
@@ -140,6 +140,7 @@ export class ModelUploadComponent implements OnInit {
   }
   
   addFile(files: any) {
+    console.log(files , "enteroing dcgxhubnmld")
     const newFileList = new DataTransfer();
     for (let i = 0; i < this.fileData.length; i++) {
       newFileList.items.add(this.fileData[i]);

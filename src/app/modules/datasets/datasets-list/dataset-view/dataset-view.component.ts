@@ -28,6 +28,15 @@ export class DatasetViewComponent {
   submitMessageForm = {
     message: '',
   };
+
+  submitUserForm ={
+    userId:{
+      id:null
+    }
+  }
+  canUserShare=false
+  allUsers:any;
+  chatMyOtherModelIsOpen=false
   datasetId: string|any;
   dataset: any;
   error: any;
@@ -70,10 +79,14 @@ chatModelIsOpen = false
       this.datasetService.datasetDetails(this.datasetId)
         .subscribe((data: any) => {
           const parsedData = data as DatasetDetailsResponse;
+          this.canUserShare = localStorage.getItem("email")== parsedData.dataset.repository.owner.email
           this.dataset = parsedData.dataset;
           this.datasetFiles = parsedData.files;
         });
     });
+
+
+
 
     this.data_subscribe = timer(0, 3000).pipe(
 
@@ -87,6 +100,35 @@ chatModelIsOpen = false
     this.getDownloadsData();
     this.updateDatasetViewers();
 
+    this.datasetService.getAllUsers().subscribe((response)=>{
+      this.allUsers = response
+    })
+
+  }
+
+
+
+  SubmitCountry():void{
+    if(this.submitUserForm.userId.id==null){
+      this.toastr.warning("please select desired user")
+      return;
+    }
+
+    this.datasetService.createNewDataUser(this.datasetId , this.submitUserForm.userId.id).subscribe((response)=>{
+      if(response?.error){
+        this.toastr.error("problem ocurred while adding user")
+        return
+      }
+      this.toastr.success("Model shared successfully ")
+    })
+
+    this.chatMyOtherModelIsOpen=false;
+
+  }
+
+
+  openTheOtherModel(){
+    this.chatMyOtherModelIsOpen=true
   }
 
 

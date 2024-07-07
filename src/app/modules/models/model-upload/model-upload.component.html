@@ -146,8 +146,8 @@
           <label for="file-upload">
             <span class="drag-drop-text text-center">Drag & Drop Files or</span>
             <input
+              accept=".zip, .tar, .gz"
               #fileInput
-              style="display: none"
               [ngModelOptions]="{ standalone: true }"
               [(ngModel)]="files"
               type="file"

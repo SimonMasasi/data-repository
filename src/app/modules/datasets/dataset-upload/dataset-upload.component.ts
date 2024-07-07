@@ -47,6 +47,8 @@ export class DatasetUploadComponent implements OnInit {
     this.datasetUploadService.getRegions().subscribe(response=>{
       this.regions= response;
     })
+
+ 
   }
 
   showSuccess() {
@@ -140,7 +142,7 @@ export class DatasetUploadComponent implements OnInit {
   
   addFile(files: any) {
     const newFileList = new DataTransfer();
-    for (let i = 0; i < this.fileData.length; i++) {
+    for (let i = 0; i < this.fileData?.length; i++) {
       newFileList.items.add(this.fileData[i]);
     }
   
@@ -153,6 +155,9 @@ export class DatasetUploadComponent implements OnInit {
   
     // Clear previous list (optional)
     const element = document.getElementById('file-list') as HTMLElement;
+    if (!element){
+        return
+    }
     element.style.color = 'red'; // Now TypeScript knows it's not null
     
     // Create list items for each file
@@ -216,7 +221,7 @@ export class DatasetUploadComponent implements OnInit {
     event.preventDefault(); // Prevent default browser behavior
   }
 
-  onDrop(event: DragEvent) {
+  onDrop(event: any) {
     event.preventDefault(); // Prevent default browser behavior
     this.selectedFile = event.dataTransfer?.files; // Access dropped files
     this.addFile(this.selectedFile)

@@ -48,7 +48,7 @@ export class ModelUploadComponent implements OnInit {
     this.modelUploadService.getRegions().subscribe(response=>{
       this.regions= response;
     })
-
+    this.addFile([]);
   }
 
   showSuccess() {

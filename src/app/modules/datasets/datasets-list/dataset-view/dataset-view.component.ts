@@ -116,7 +116,7 @@ chatModelIsOpen = false
 
     this.datasetService.createNewDataUser(this.datasetId , this.submitUserForm.userId.id).subscribe((response)=>{
       if(response?.error){
-        this.toastr.error("problem ocurred while adding user")
+        this.toastr.error(response?.message)
         return
       }
       this.toastr.success("Model shared successfully ")
@@ -356,7 +356,6 @@ deleteDatasetFile(datasetId: number){
         (response)=>{
           console.log(response)
           this.chat_messages = response
-
         }
       )
     }

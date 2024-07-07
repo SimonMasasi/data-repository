@@ -77,7 +77,7 @@ isUserModalOpen=false;
           const parsedData = data as ModelDetailsResponse;
           this.model = parsedData.model;
           this.modelFiles = parsedData.files;
-          this.canUserShare = localStorage.getItem("email")==parsedData.model.repository.owner.email
+          this.canUserShare = localStorage.getItem("email")===parsedData.model.repository.owner.email
         });
     });
 
@@ -128,7 +128,7 @@ isUserModalOpen=false;
 
     this.modelService.createNewModelUser(this.modelId , this.submitUserForm.userId.id).subscribe((response)=>{
       if(response?.error){
-        this.toastr.error("problem ocurred while adding user")
+        this.toastr.error(response?.message)
         return
       }
       this.toastr.success("Model shared successfully ")

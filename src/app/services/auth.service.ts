@@ -115,6 +115,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('roles');
+    localStorage.removeItem('email');
   }
 
   private handleError(error: HttpErrorResponse) {

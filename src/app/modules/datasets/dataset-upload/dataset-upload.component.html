@@ -1,147 +1,310 @@
 <header class="header-back">
   <nav class="">
-    <app-nav-bar></app-nav-bar>     
-      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pt-10">
-      </div>
-    </nav>
+    <app-nav-bar></app-nav-bar>
+    <div
+      class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pt-10"
+    ></div>
+  </nav>
 </header>
 <div class="text-center mt-6 mb-5">
   <h1>DATASET UPLOADING CENTER</h1>
 </div>
-<mat-stepper #stepper style="background-color: white;" class="mb-8">
+<mat-stepper #stepper style="background-color: white" class="mb-8">
   <form (ngSubmit)="onSubmit()">
-  <mat-step class="pt-12" errorMessage="fields are required.">
+    <mat-step class="pt-12" errorMessage="fields are required.">
       <ng-template matStepLabel>
-        <span [ngStyle]="{'color': isFirstValid() ? 'black' : 'red'}">Fill out all fields</span>
+        <span [ngStyle]="{ color: isFirstValid() ? 'black' : 'red' }"
+          >Fill out all fields</span
+        >
       </ng-template>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        <div class="bg-white rounded-lg shadow-sm overflow-hidden p-4" style="background-color: white">
-          <label for="name" class="text-gray-700 text-sm font-medium mb-2">Repository name</label>
-          <input [ngModelOptions]="{standalone: true}" [(ngModel)]="repo_name" required type="text" id="name" name="name" class="w-full inputs pl-4 border border-gray-300 focus:outline-none focus:border-blue-500 focus:border-2 transition duration-300 ease-in-out input">
+        <div
+          class="bg-white rounded-lg shadow-sm overflow-hidden p-4"
+          style="background-color: white"
+        >
+          <label for="name" class="text-gray-700 text-sm font-medium mb-2"
+            >Repository name</label
+          >
+          <input
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="repo_name"
+            required
+            type="text"
+            id="name"
+            name="name"
+            class="w-full inputs pl-4 border border-gray-300 focus:outline-none focus:border-blue-500 focus:border-2 transition duration-300 ease-in-out input"
+          />
         </div>
-        <div class="bg-white rounded-lg shadow-sm overflow-hidden p-4" style="background-color: white;">
-          <label for="email" class="text-gray-700 text-sm font-medium mb-2">Author name</label>
-          <input [(ngModel)]="email" required type="text" id="author"  name="author" class="w-full inputs pl-4 border border-gray-300 focus:outline-none focus:border-blue-500 focus:border-2 transition duration-300 ease-in-out">
+        <div
+          class="bg-white rounded-lg shadow-sm overflow-hidden p-4"
+          style="background-color: white"
+        >
+          <label for="email" class="text-gray-700 text-sm font-medium mb-2"
+            >Author name</label
+          >
+          <input
+            [(ngModel)]="email"
+            required
+            type="text"
+            id="author"
+            name="author"
+            class="w-full inputs pl-4 border border-gray-300 focus:outline-none focus:border-blue-500 focus:border-2 transition duration-300 ease-in-out"
+          />
         </div>
       </div>
-      
+
       <div class="grid grid-rows-1 md:grid-cols-1 gap-4 mb-8">
-        <div class="bg-white rounded-lg shadow-sm border overflow-hidden p-4 flex flex-col justify-between" style="width: 100%; background-color: white">
+        <div
+          class="bg-white rounded-lg shadow-sm border overflow-hidden p-4 flex flex-col justify-between"
+          style="width: 100%; background-color: white"
+        >
           <div class="flex items-center mb-4">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="scope" required="" type="radio" id="option1"value="Private" class="w-4 h-4 mr-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-opacity-50">
+            <input
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="scope"
+              required=""
+              type="radio"
+              id="option1"
+              value="Private"
+              class="w-4 h-4 mr-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-opacity-50"
+            />
             <label for="option1" class="text-gray-700">private</label>
           </div>
           <p class="text-black text-base leading-loose">
-            Only you (personal dataset) or members of your organization (organization dataset) can see and commit to this dataset.
+            Only you (personal dataset) or members of your organization
+            (organization dataset) can see and commit to this dataset.
           </p>
         </div>
-        <div class="bg-white rounded-lg shadow-sm border overflow-hidden p-4 flex flex-col justify-between" style="width: 100%; background-color: white">
+        <div
+          class="bg-white rounded-lg shadow-sm border overflow-hidden p-4 flex flex-col justify-between"
+          style="width: 100%; background-color: white"
+        >
           <div class="flex items-center mb-4">
-            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="scope" type="radio" id="option2" value="Public" class="w-4 h-4 mr-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-opacity-50">
+            <input
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="scope"
+              type="radio"
+              id="option2"
+              value="Public"
+              class="w-4 h-4 mr-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-opacity-50"
+            />
             <label for="option2" class="text-gray-700">public</label>
           </div>
           <p class="text-black text-base leading-loose">
-            Anyone on the internet can see this dataset. Only you (personal dataset) or members of your organization (organization dataset) can commit.          
+            Anyone on the internet can see this dataset. Only you (personal
+            dataset) or members of your organization (organization dataset) can
+            commit.
           </p>
         </div>
       </div>
-      <div class="flex justify-end" >
+      <div class="flex justify-end">
         <button mat-button matStepperNext>
-          <span class="text-green-500 bg-green-100 px-4 py-2 rounded shadow-sm hover:bg-green-200">Next</span>
+          <span
+            class="text-green-500 bg-green-100 px-4 py-2 rounded shadow-sm hover:bg-green-200"
+            >Next</span
+          >
         </button>
       </div>
-  </mat-step>
-<div>
-  <mat-step errorMessage="file required." class="pt-8 pb-8" style="background-color: white;">
-      <ng-template matStepLabel>
-        <span [ngStyle]="{'color': isSecondValid() ? 'black' : 'red'}">Add files</span>
-      </ng-template>
-      <div>
-        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
-          <p class="font-bold">Warning!</p>
-          <p>Before uploading a file, please make sure it meets the requirements:</p>
-          <ul class="list-disc pl-5">
+    </mat-step>
+    <div>
+      <mat-step
+        errorMessage="file required."
+        class="pt-8 pb-8"
+        style="background-color: white"
+      >
+        <ng-template matStepLabel>
+          <span [ngStyle]="{ color: isSecondValid() ? 'black' : 'red' }"
+            >Add files</span
+          >
+        </ng-template>
+        <div>
+          <div
+            class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4"
+            role="alert"
+          >
+            <p class="font-bold">Warning!</p>
+            <p>
+              Before uploading a file, please make sure it meets the
+              requirements:
+            </p>
+            <ul class="list-disc pl-5">
               <li>Zip your dataset into one zipped file</li>
               <li>Accepted file types: .zip</li>
-          </ul>
-      </div>
-      </div>
-      <h3 class="m-4">Add datasets files for the folder above by browsing or dragging files in the field below</h3>
-      <div class="file-upload-container" style="min-height: 7rem; width:100%; display: flex" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (click)="fileInput.click()">
-        <label for="file-upload">
-          <span class="drag-drop-text text-center">Drag & Drop Files or</span>
-          <input accept=".zip, .tar, .gz" #fileInput style="display: none;" [ngModelOptions]="{standalone: true}" [(ngModel)]="files" type="file" id="file-upload" multiple (change)="onFileSelected($event)">
-          <span class="browse-button text-center">Browse Files</span>
-        </label>
-      </div>
+            </ul>
+          </div>
+        </div>
+        <h3 class="m-4">
+          Add datasets files for the folder above by browsing or dragging files
+          in the field below
+        </h3>
+        <div
+          class="file-upload-container"
+          style="min-height: 7rem; width: 100%; display: flex"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop($event)"
+          (click)="fileInput.click()"
+        >
+          <label for="file-upload">
+            <span class="drag-drop-text text-center">Drag & Drop Files or</span>
+            <input
+              accept=".zip, .tar, .gz"
+              #fileInput
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="files"
+              type="file"
+              id="file-upload"
+              multiple
+              (change)="onFileSelected($event)"
+            />
+            <span class="browse-button text-center">Browse Files</span>
+          </label>
+        </div>
 
-      <ul id="file-list" class="text-gray-600 mt-4 list-none pl-4">
-      </ul>
-      <div style="width: 100%; display:flex; justify-content: space-between; bottom: 0" class="mt-8">
-        <button matStepperPrevious>
-          <span class="text-yellow-500 bg-yellow-100 px-4 py-2 rounded shadow-sm hover:bg-yellow-200">Back</span>
-        </button>
+        <ul id="file-list" class="text-gray-600 mt-4 list-none pl-4"></ul>
+        <div
+          style="
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            bottom: 0;
+          "
+          class="mt-8"
+        >
+          <button matStepperPrevious>
+            <span
+              class="text-yellow-500 bg-yellow-100 px-4 py-2 rounded shadow-sm hover:bg-yellow-200"
+              >Back</span
+            >
+          </button>
 
-        <button mat-button matStepperNext>
-          <span matStepperNext class="text-green-500 bg-green-100 px-4 py-2 rounded shadow-sm hover:bg-green-200">Next</span>
-        </button>
-      </div>
-  </mat-step>
-</div>
+          <button mat-button matStepperNext>
+            <span
+              matStepperNext
+              class="text-green-500 bg-green-100 px-4 py-2 rounded shadow-sm hover:bg-green-200"
+              >Next</span
+            >
+          </button>
+        </div>
+      </mat-step>
+    </div>
 
-<div>
-  <mat-step errorMessage="file required." class="pt-8 pb-8" style="background-color: white;">
-      <ng-template matStepLabel>
-        <span [ngStyle]="{'color': isThirdValid() ? 'black' : 'red'}">Complete now</span>
-      </ng-template>
-    <div class="m-10">
-      <h1 class="text-center text-gray">Additional information about datasets</h1>
+    <div>
+      <mat-step
+        errorMessage="file required."
+        class="pt-8 pb-8"
+        style="background-color: white"
+      >
+        <ng-template matStepLabel>
+          <span [ngStyle]="{ color: isThirdValid() ? 'black' : 'red' }"
+            >Complete now</span
+          >
+        </ng-template>
+        <div class="m-10">
+          <h1 class="text-center text-gray">
+            Additional information about datasets
+          </h1>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div
+            class="bg-white rounded-lg shadow-sm border overflow-hidden p-4"
+            style="background-color: white"
+          >
+            <label for="description" class="text-gray-700 font-bold mb-2"
+              >Description</label
+            >
+            <textarea
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="description"
+              required
+              rows="7"
+              class="w-full p-4 resize-none border border-gray-300 focus:outline-none focus:border-blue-500 focus:border-2 transition duration-300 ease-in-out"
+            ></textarea>
+          </div>
+          <div
+            class="bg-white rounded-lg shadow-sm border overflow-hidden p-4"
+            style="background-color: white"
+          >
+            <label for="title" class="text-gray-700 font-bold mb-2"
+              >Dataset title</label
+            >
+            <input
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="title"
+              required
+              type="text"
+              class="w-full inputs pl-4 border border-gray-300 focus:outline-none focus:border-blue-500 focus:border-2 transition duration-300 ease-in-out"
+            />
+          </div>
+          <div
+            class="bg-white rounded-lg shadow-sm border overflow-hidden p-4"
+            style="background-color: white"
+          >
+            <label for="email" class="text-gray-700 font-bold mb-2"
+              >Dataset category</label
+            >
+            <select
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="domain"
+              id=""
+              class="w-full inputs pl-4 border border-gray-300 focus:outline-none focus:border-blue-500 focus:border-2 transition duration-300 ease-in-out"
+            >
+              <option *ngFor="let domain of domains" value="{{ domain.name }}">
+                {{ domain.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-8">
+          <h1 class="text-lg text-red-800">
+            Add the dataset tags bellow (Optional)
+          </h1>
+          <div
+            class="grid flex grid-cols-1 focus:outline-none focus:border-none"
+          >
+            <p-chips
+              [formControl]="tags"
+              [max]="max"
+              placeholder="Maximum 5 items"
+              class="inputs pl-4 border-none focus:outline-none focus:border-none transition duration-300 ease-in-out focus:outline-none"
+            ></p-chips>
+          </div>
+        </div>
+
+        <div
+          style="
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            bottom: 0;
+          "
+          class="mt-8"
+        >
+          <button matStepperPrevious>
+            <span
+              class="text-yellow-500 bg-yellow-100 px-4 py-2 rounded shadow-sm hover:bg-yellow-200"
+              >Back</span
+            >
+          </button>
+          <button mat-button>
+            <span
+              (click)="stepper.reset()"
+              class="text-green-500 bg-green-100 px-4 py-2 rounded shadow-sm hover:bg-green-200"
+              >reset</span
+            >
+          </button>
+          <button type="submit">
+            <button
+              (click)="onSubmit()"
+              class="text-green-500 bg-green-100 px-4 py-2 rounded shadow-sm hover:bg-green-200"
+            >
+              Submit
+            </button>
+          </button>
+        </div>
+      </mat-step>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-white rounded-lg shadow-sm border overflow-hidden p-4" style="background-color: white;">
-        <label for="description" class="text-gray-700 font-bold mb-2">Description</label>
-        <textarea [ngModelOptions]="{standalone: true}" [(ngModel)]="description" required rows="7" class="w-full p-4 resize-none border border-gray-300 focus:outline-none focus:border-blue-500 focus:border-2 transition duration-300 ease-in-out"></textarea>
-      </div>
-      <div class="bg-white rounded-lg shadow-sm border overflow-hidden p-4" style="background-color: white;">
-        <label for="title" class="text-gray-700 font-bold mb-2">Dataset title</label>
-        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="title" required type="text" class="w-full inputs pl-4 border border-gray-300 focus:outline-none focus:border-blue-500 focus:border-2 transition duration-300 ease-in-out">
-      </div>
-      <div class="bg-white rounded-lg shadow-sm border overflow-hidden p-4" style="background-color: white;">
-        <label for="email" class="text-gray-700 font-bold mb-2">Dataset category</label>
-        <select [ngModelOptions]="{standalone: true}" [(ngModel)]="domain" id="" class="w-full inputs pl-4 border border-gray-300 focus:outline-none focus:border-blue-500 focus:border-2 transition duration-300 ease-in-out">
-          <option *ngFor="let domain of domains" value="{{domain.name}}">{{domain.name}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="mt-8">
-      <h1 class="text-lg text-red-800">Add the dataset tags bellow (Optional)</h1>
-      <div class="grid flex grid-cols-1 focus:outline-none focus:border-none">
-        <p-chips 
-            [formControl]="tags"
-            [max]="max" 
-            placeholder="Maximum 5 items" 
-            class="inputs pl-4 border-none focus:outline-none focus:border-none  transition duration-300 ease-in-out focus:outline-none"
-        ></p-chips> 
-      </div>
-  </div>
-    
-    <div style="width: 100%; display:flex; justify-content: space-between; bottom: 0" class="mt-8">
-      <button matStepperPrevious>
-        <span class="text-yellow-500 bg-yellow-100 px-4 py-2 rounded shadow-sm hover:bg-yellow-200">Back</span>
-      </button>
-      <button mat-button>
-        <span (click)="stepper.reset()" class="text-green-500 bg-green-100 px-4 py-2 rounded shadow-sm hover:bg-green-200">reset</span>
-      </button>
-      <button type="submit">
-        <button (click)="onSubmit()" class="text-green-500 bg-green-100 px-4 py-2 rounded shadow-sm hover:bg-green-200">Submit</button>
-      </button>
-    </div>
-  </mat-step>
-</div>
   </form>
 </mat-stepper>
-
-
 
 <div
   *ngIf="chatModelIsOpen"

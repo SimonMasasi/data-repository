@@ -47,7 +47,7 @@ export class UploadDatasetComponent {
 
   onSubmit() {
     // Validate form data (since we're not using FormBuilder)
-    if (!this.repo_name || !this.scope || !this.title || !this.dataset_name || this.description || this.domain || this.file) {
+    if (!this.repo_name || !this.scope || !this.title || !this.dataset_name || !this.description || !this.domain || !this.file) {
       this.error = 'Please fill in all fields correctly.';
       return;
     }

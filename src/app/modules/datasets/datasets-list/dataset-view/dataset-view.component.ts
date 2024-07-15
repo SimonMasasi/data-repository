@@ -131,6 +131,10 @@ chatModelIsOpen = false
     this.chatMyOtherModelIsOpen=true
   }
 
+  closeTheOtherModel(){
+    this.chatMyOtherModelIsOpen=false
+  }
+
 
 
   isLoggedIn(){

@@ -114,7 +114,7 @@ onSubmit() {
     (response) => {
       console.log('Registration successful!', response);
       this.showSuccess();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/verify']);
     },
     (error) => {
       console.error('Registration error:', error.error);

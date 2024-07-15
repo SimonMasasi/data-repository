@@ -71,6 +71,18 @@ export class AuthService {
       );
   }
 
+
+  Verify(username: string): Observable<any> {
+    this.url = this.APIUrl + "/auth/verify/";
+    return this.http.post<any>(this.url, { token:username })
+      .pipe(
+        map(response => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   changePassword(oldPassword: string, newPassword: string): Observable<any> {
 
     const httpOptions = {

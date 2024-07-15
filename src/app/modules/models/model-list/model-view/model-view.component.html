@@ -368,10 +368,20 @@
   <div
     class="modal-content bg-white rounded-lg shadow-lg p-8 w-3/4 model-white"
   >
-    <div class="max-w-md mx-auto bg-white overflow-hidden model-white">
-      <h2 class="text-lg font-semibold text-zinc-800">
+    <div class="flex justify-center max-w-md mx-auto bg-white overflow-hidden model-white">
+      <h2 class="text-lg font-semibold flex-1 w-2/3 mt-2 text-zinc-800">
         Select Desired user to share with
+        
       </h2>
+        <button
+        id="myinput"
+        class="bg-red-500 mb-8  hover:bg-red-700 text-white font-bold py-1.5 px-3 rounded-lg transition duration-300 ease-in-out text-sm my-2"
+        (click)="closeTheOtherModel()"
+
+      >
+        close
+      </button>
+
     </div>
 
     <form class="form" (ngSubmit)="SubmitCountry()">

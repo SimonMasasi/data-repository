@@ -20,7 +20,7 @@ const routes: Routes = [
     component: RegisterComponent,
   },
   {
-    path: "verification",
+    path: "verify",
     component: VerificationComponent,
   },
   {

@@ -53,6 +53,7 @@
         </div>
       </div>
 
+
       <div class="grid grid-rows-1 md:grid-cols-1 gap-4 mb-8">
         <div
           class="bg-white rounded-lg shadow-sm border overflow-hidden p-4 flex flex-col justify-between"
@@ -142,13 +143,11 @@
           style="min-height: 7rem; width: 100%; display: flex"
           (dragover)="onDragOver($event)"
           (drop)="onDrop($event)"
-          (click)="fileInput.click()"
         >
           <label for="file-upload">
             <span class="drag-drop-text text-center">Drag & Drop Files or</span>
             <input
               accept=".zip, .tar, .gz"
-              #fileInput
               [ngModelOptions]="{ standalone: true }"
               [(ngModel)]="files"
               type="file"
@@ -156,7 +155,7 @@
               multiple
               (change)="onFileSelected($event)"
             />
-            <span class="browse-button text-center">Browse Files</span>
+            <span class="browse-button text-center">Click here to Browse Files</span>
           </label>
         </div>
 
@@ -203,6 +202,13 @@
           <h1 class="text-center text-gray">
             Additional information about datasets
           </h1>
+
+        <div
+        *ngIf="isLoading"
+        class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50"
+      >
+        <app-loading></app-loading>
+      </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div
@@ -317,11 +323,23 @@
   <div
     class="modal-content bg-white rounded-lg shadow-lg p-8 w-3/4 model-white"
   >
-    <div class="max-w-md mx-auto bg-white overflow-hidden model-white">
-      <h2 class="text-lg font-semibold text-zinc-800">
+
+    <div class="flex justify-center max-w-md mx-auto bg-white overflow-hidden model-white">
+      <h2 class="text-lg font-semibold flex-1 w-2/3 mt-2 text-zinc-800">
         Select Desired Country For your Dataset
+        
       </h2>
+        <button
+        id="myinput"
+        class="bg-red-500 mb-8  hover:bg-red-700 text-white font-bold py-1.5 px-3 rounded-lg transition duration-300 ease-in-out text-sm my-2"
+        (click)="closeTheOtherModel()"
+
+      >
+        close
+      </button>
+
     </div>
+
 
     <form class="form" (ngSubmit)="SubmitCountry()">
       <select
@@ -346,3 +364,4 @@
     </form>
   </div>
 </div>
+

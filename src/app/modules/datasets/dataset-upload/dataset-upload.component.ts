@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  , ChangeDetectorRef} from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { DatasetService } from '../../../services/dataset.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { switchMap, timer } from 'rxjs';
 
 @Component({
   selector: 'stepper-errors-example',
@@ -14,6 +15,7 @@ export class DatasetUploadComponent implements OnInit {
   private fileData: FileList = new DataTransfer().files;
   selectedFiles: File[] = [];
   selectedFile: any;
+  isLoading:any;
   submitMessageForm = {
     country: {
       id:1,
@@ -37,6 +39,7 @@ export class DatasetUploadComponent implements OnInit {
     private datasetUploadService: DatasetService,
     private toastr: ToastrService,
     private router: Router,
+    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -66,16 +69,22 @@ export class DatasetUploadComponent implements OnInit {
       return;
     }
     if(this.submitMessageForm.country?.name.toLocaleLowerCase()!="tanzania"){
-      this.toastr.error("sorry only Tanzania related models are allowed")
+      this.toastr.error("sorry only Tanzania related Datasets are allowed")
       this.router.navigate(['/my-datasets'])
     }
     this.chatModelIsOpen=false;
 
   }
 
+
   onSubmit() {
     console.log("Submission started")
     if (this.isFirstValid() && this.isSecondValid() && this.isThirdValid() && this.description != '') {
+
+
+      this.isLoading=true
+      this.cdr.detectChanges(); // Manually trigger change detection
+
       
       console.log("The form is valid")
       const formData = new FormData();
@@ -101,6 +110,8 @@ export class DatasetUploadComponent implements OnInit {
         (response) => {
           console.log('Response:', response);
           this.showSuccess();
+          this.isLoading=false;
+          this.cdr.detectChanges(); // Manually trigger change detection
           this.router.navigate(['/my-datasets']);
         },
         (error) => {
@@ -111,6 +122,8 @@ export class DatasetUploadComponent implements OnInit {
     } else {
       this.showFailure();
     }
+    this.isLoading=false
+    this.cdr.detectChanges(); // Manually trigger change detection
   }
   validateFirstStep(): boolean {
     return this.repo_name != '' && this.email != '' && this.scope != '';
@@ -189,6 +202,12 @@ export class DatasetUploadComponent implements OnInit {
     }
     console.log(this.fileData);
   }
+
+  closeTheOtherModel(){
+    this.chatModelIsOpen=false;
+    this.router.navigate(['/my-datasets'])
+  }
+
   
   removeFile(listItem: HTMLLIElement, index: number) {
     const element = document.getElementById('file-list') as HTMLElement;

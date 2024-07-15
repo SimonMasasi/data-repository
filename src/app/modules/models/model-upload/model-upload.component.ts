@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef} from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModelService } from '../../../services/model.service';
 import { ToastrService } from 'ngx-toastr';
@@ -26,6 +26,7 @@ export class ModelUploadComponent implements OnInit {
   scope: any;
   files: any;
   description: any;
+  isLoading = false;
   title: any;
   chatModelIsOpen=true;
   domain: any;
@@ -38,6 +39,8 @@ export class ModelUploadComponent implements OnInit {
     private modelUploadService: ModelService,
     private toastr: ToastrService,
     private router: Router,
+    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
+
   ) {}
 
   ngOnInit(): void {
@@ -61,6 +64,11 @@ export class ModelUploadComponent implements OnInit {
   onSubmit() {
     console.log("Submission started")
     if (this.isFirstValid() && this.isSecondValid() && this.isThirdValid() && this.description != '') {
+
+
+      this.isLoading=true
+      this.cdr.detectChanges(); // Manually trigger change detection
+
       
       console.log("The form is valid")
       const formData = new FormData();
@@ -81,24 +89,36 @@ export class ModelUploadComponent implements OnInit {
       }
       console.log(this.domain);
 
-      const token = localStorage.getItem('token'); // Retrieve token from local storage
+      const token = localStorage.getItem('token');
+      this.isLoading=true // Retrieve token from local storage
       this.modelUploadService.uploadModel(formData, token)?.subscribe(
         (response) => {
           console.log('Response:', response);
           this.showSuccess();
+          this.isLoading=false 
+          this.cdr.detectChanges(); // Manually trigger change detection
           this.router.navigate(['/my-models']);
         },
         (error) => {
           console.error('Error:', error);
+          this.isLoading=false 
           // Handle error, maybe show an error message
         }
       );
     } else {
       this.showFailure();
+      this.cdr.detectChanges(); // Manually trigger change detection
+      this.isLoading=false 
     }
   }
   validateFirstStep(): boolean {
     return this.repo_name != '' && this.email != '' && this.scope != '';
+  }
+
+
+  closeTheOtherModel(){
+    this.chatModelIsOpen=false;
+    this.router.navigate(['/my-models'])
   }
   
   validateSecondStep(): boolean {

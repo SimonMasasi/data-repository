@@ -100,6 +100,9 @@ isUserModalOpen=false;
 
   }
 
+  closeTheOtherModel(){
+    this.chatMyOtherModelIsOpen=false
+  }
   openFileViewer(fileId: string): void {
     this.modelService.viewFile(fileId).subscribe(
       (file: Blob) => {

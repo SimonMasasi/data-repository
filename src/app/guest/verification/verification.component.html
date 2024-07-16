@@ -1,23 +1,4 @@
 
 <section class="body-full-color bg-gradient-to-r from-blue-500 to-purple-500 mb-10">
     <app-nav-bar></app-nav-bar>
-      
-    <div class="flex flex-col lg:flex-row justify-between items-center mt-10 p-4">
-        <!-- Registration Form -->
-        <div class="flex justify-center items-center p-4 lg:p-10 lg:mx-32 lg:w-1/2">
-            <form class="form" (ngSubmit)="onSubmit()">
-                <p class="title">Verify an email</p>
-                <p class="message">Verify your account Enter the verication code we send in your email.</p>
-                <label>
-                    <ng-otp-input  (onInputChange)="onChange($event)" [ngModelOptions]="{standalone: true}" [(ngModel)]="verification_code"  [config]="{length:6}"></ng-otp-input>
-                </label>
-                <button class="submit">Submit</button>
-                <p class="signin">Have a problem with the code? <a (click)="resendCode()">resend</a></p>
-            </form>
-        </div>
-        <!-- Hero Image -->
-        <div class="flex justify-center items-center p-4 lg:w-1/2">
-            <img class="bounce duration-150" src="../../../assets/images/hero-img.png" alt="">
-        </div>
-    </div>
 </section>

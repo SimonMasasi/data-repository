@@ -1,8 +1,7 @@
-import { Component, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { Router  , ActivatedRoute} from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +12,49 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './verification.component.html',
   styleUrl: './verification.component.scss'
 })
-export class VerificationComponent {
+export class VerificationComponent implements OnInit {
   verification_email: any = localStorage.getItem('verification_email');
   verification_code: string = '';
   registrationError: any;
+  token:string | null | undefined;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
-    ){}
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+    ){
+
+    }
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      if (params) {
+        this.token= params['token']
+      } 
+      else{
+        this.token = ''
+      }
+     })
+
+    this.authService.verifyEmail({} , this.token)
+    .subscribe(
+      (response) => {
+        if(response.status){
+          this.toastr.success("Account activated Successfully ");
+          this.router.navigate(['/login']);
+        }else{
+          this.toastr.error(response.message);
+          this.router.navigate(['/login']);
+        }
+      },
+      (error) => {
+        console.error('Registration error:', error);
+        this.toastr.error("An Error Ocurred while Activating ")
+      }
+    );
+  }
+
+    
     onChange(event: any){
       this.verification_code=event.target.values;
     }
@@ -35,21 +67,17 @@ export class VerificationComponent {
     }
 
   onSubmit() {
-    const formData = new FormData();
-    formData.append('verification_code', 'oPZIc4');
-    formData.append('email', this.verification_email);
-    
-    this.authService.verifyEmail(formData)
+    const formData = new FormData();    
+    this.authService.verifyEmail(formData , this.token)
     .subscribe(
       (response) => {
-        if(response.message=="success"){
-          console.log('Registration successful!', response);
+        if(response.status){
           this.showSuccess();
           this.router.navigate(['/login']);
         }else{
           console.log('Registration failed!', response);
           this.showFailure();
-          this.router.navigate(['/verification']);
+          this.router.navigate([`/my-datasets`]);
         }
       },
       (error) => {

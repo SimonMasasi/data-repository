@@ -39,10 +39,16 @@ export class AuthService {
     );
   }
 
-  verifyEmail(data: any): Observable<any> {
-    this.url = this.APIUrl + "/auth/verify-account/";
-    console.log(data);
-    return this.http.post<any>(this.url, data);
+  verifyEmail(data: any , token:string|null|undefined): Observable<any> {
+    this.url = this.APIUrl + `/auth/verify-account/`;
+    return this.http.post<any>(this.url, {verification_code:token}).pipe(
+      map(response => {
+        if (response?.status){
+          return response
+        }
+        this.storeUserData(response.userData);
+        return response;
+      }));
   }
 
   // register(first_name:string, last_name:string, email: string, password: string){

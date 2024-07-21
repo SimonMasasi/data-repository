@@ -73,11 +73,11 @@ export class VerificationComponent implements OnInit {
       (response) => {
         if(response.status){
           this.showSuccess();
-          this.router.navigate(['/login']);
+          this.router.navigate(['/my-datasets']);
         }else{
           console.log('Registration failed!', response);
           this.showFailure();
-          this.router.navigate([`/my-datasets`]);
+          this.router.navigate([``]);
         }
       },
       (error) => {

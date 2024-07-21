@@ -24,7 +24,7 @@ export class RegisterComponent {
 
 constructor(private authService:AuthService, private router:Router, private http: HttpClient, private toastr: ToastrService){}
 showSuccess() {
-  this.toastr.success('Registration successfully now you can login!', 'registration status dialogue');
+  this.toastr.success(`Registration successfully Please verify your account in you're email address you can login!`);
 }
 showFailure() {
   this.toastr.error('Registration please the valid data', 'registration status dialogue');
@@ -114,7 +114,6 @@ onSubmit() {
     (response) => {
       console.log('Registration successful!', response);
       this.showSuccess();
-      this.router.navigate(['/verify']);
     },
     (error) => {
       console.error('Registration error:', error.error);

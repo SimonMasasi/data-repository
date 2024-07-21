@@ -44,7 +44,7 @@ export class AuthService {
     return this.http.post<any>(this.url, {verification_code:token}).pipe(
       map(response => {
         if (response?.status){
-          this.storeUserData(response.userData);
+          this.storeUserData(response);
           return response
         }
         return response;

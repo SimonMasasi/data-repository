@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.credentials.username, this.credentials.password)
       .subscribe((response)=>{
           if(response.error){
-            this.toastr.error('Login Failed Check your login infos ', 'login status dialogue');
+            this.toastr.error(response.error);
             return;
           }
           this.showSuccess();

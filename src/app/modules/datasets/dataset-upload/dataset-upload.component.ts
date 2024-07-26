@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { DatasetService } from '../../../services/dataset.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { switchMap, timer } from 'rxjs';
+import {map, Observable, startWith, switchMap, timer} from 'rxjs';
 
 @Component({
   selector: 'stepper-errors-example',
@@ -12,15 +12,19 @@ import { switchMap, timer } from 'rxjs';
 })
 export class DatasetUploadComponent implements OnInit {
 
+  myControl = new FormControl('');
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: any
+  regionsCopy : any[]=[]
+
+
   private fileData: FileList = new DataTransfer().files;
+  searchName="name"
   selectedFiles: File[] = [];
   selectedFile: any;
   isLoading:any;
   submitMessageForm = {
-    country: {
-      id:1,
-      name:"none"
-    },
+    country: ''
   };
   chatModelIsOpen=true;
   repo_name: any;
@@ -47,11 +51,23 @@ export class DatasetUploadComponent implements OnInit {
       this.domains=response;
     })
 
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || '')),
+    );
+
+
     this.datasetUploadService.getRegions().subscribe(response=>{
       this.regions= response;
+      this.regionsCopy=response
     })
 
- 
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   showSuccess() {
@@ -64,11 +80,12 @@ export class DatasetUploadComponent implements OnInit {
 
 
   SubmitCountry():void{
-    if(this.submitMessageForm.country?.name=="none"){
+    console.log(this.submitMessageForm.country , "dfcsdvgnjshgcjfbv")
+    if(this.submitMessageForm.country==''){
       this.toastr.warning("please select desired country")
       return;
     }
-    if(this.submitMessageForm.country?.name.toLocaleLowerCase()!="tanzania"){
+    if(this.submitMessageForm.country.toLocaleLowerCase()!="tanzania"){
       this.toastr.error("sorry only Tanzania related Datasets are allowed")
       this.router.navigate(['/my-datasets'])
     }
@@ -148,6 +165,9 @@ export class DatasetUploadComponent implements OnInit {
   isThirdValid(): boolean {
     return this.validateThirdStep();
   }
+
+
+
   onFileSelected(event: any) {
     this.selectedFile = event.target.files;
     this.addFile(this.selectedFile);
@@ -233,6 +253,29 @@ export class DatasetUploadComponent implements OnInit {
     // Remove list item from UI
     listItem.remove();
     console.log(this.fileData);
+  }
+
+
+  changed(value: any) {
+    console.log(value)
+    this.regionsCopy=this.filterCountries(value)
+  }
+  filterCountries(input:any) {
+    const myList = []
+    if(input){
+      for(let i=0;i<this.regions.length;i++){
+        if(this.regions[i].name.toLowerCase().includes(input.toLowerCase())){
+          myList.push(this.regions[i]);
+        }
+
+      }
+      return myList
+    }
+    else{
+      return this.regions;
+    }
+
+
   }
   
   

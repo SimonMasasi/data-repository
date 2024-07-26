@@ -22,6 +22,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { MatIconModule } from '@angular/material/icon';
 import { UserModule } from './modules/user/user.module';
 import { HistoryService } from './services/history.service';
+import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 // import { MatThemeModule } from '@angular/material/theming';
 
 @NgModule({
@@ -29,9 +30,7 @@ import { HistoryService } from './services/history.service';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    VerificationComponent
-    
-    
+    VerificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +45,7 @@ import { HistoryService } from './services/history.service';
     CommonModule, 
     ModelsModule,
     NgOtpInputModule,
+    NgxMatSelectSearchModule,
     // MatIconModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}, {})

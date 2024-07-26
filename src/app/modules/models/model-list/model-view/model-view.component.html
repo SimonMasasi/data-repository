@@ -15,7 +15,7 @@
   <div class="col-span-1 flex justify-end mr-16 mt-10">
     <button
       *ngIf="canUserShare"
-      matTooltip="Upvote"
+      matTooltip="share"
       class="px-2 mr-2 py-1 rounded shadow-sm download-btn"
       (click)="openTheOtherModel()"
     >
@@ -385,18 +385,24 @@
     </div>
 
     <form class="form" (ngSubmit)="SubmitCountry()">
-      <select
-        required
-        placeholder="type message"
-        [(ngModel)]="submitUserForm.userId"
-        name="message"
-        class="flex-1 p-2 border rounded-lg text-sm w-full my-2"
-      >
-        <option value="" disabled>Choose a user</option>
-        <option *ngFor="let user of allUsers" [ngValue]="user">
-          {{ user?.email }}
-        </option>
-      </select>
+
+        <mat-label>Pick a User</mat-label>
+        <input type="text"
+               placeholder="Pick user"
+               class="flex-1 p-2 border rounded-lg text-sm w-full my-2"
+               aria-label="Number"
+               [(ngModel)]="submitUserForm.userId"
+               (ngModelChange)="changed($event)"
+               matInput
+               [matAutocomplete]="auto">
+
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" >
+            @for (option of regionsCopy ; track option.username) {
+                <mat-option [value]="option.username">{{option.username}}</mat-option>
+            }
+        </mat-autocomplete>
+
+
       <button
         type="submit"
         id="myinput"

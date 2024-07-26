@@ -16,21 +16,24 @@ import { LoadingComponent } from './loading/loading.component';
 import { CountUpDirective } from './count-up.directive';
 import { DatasetsComponent } from './datasets/datasets.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatSelectSearchComponent} from "./component/custom-form-fields/mat-select-search/mat-select-search.component";
+
 
 @NgModule({
-  declarations: [
-  
-    NavBarComponent,
-       PaginationComponent,
-       ButtonComponent,
-       DonutChartComponent,
-       LineGraphComponent,
-       CountUpDirective,
-       LoadingComponent,
-       LandigPageComponent,
-       DatasetsComponent
-       
-  ],
+    declarations: [
+
+        NavBarComponent,
+        PaginationComponent,
+        ButtonComponent,
+        DonutChartComponent,
+        LineGraphComponent,
+        CountUpDirective,
+        LoadingComponent,
+        LandigPageComponent,
+        DatasetsComponent,
+        MatSelectSearchComponent
+
+    ],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -40,16 +43,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
   ],
-  exports: [
-    PaginationComponent,
-    NavBarComponent,
-    LandigPageComponent,
-    AdminLayoutModule,
-    DonutChartComponent,
-    LineGraphComponent,
-    LoadingComponent,
-    CountUpDirective,
-    DatasetsComponent
-  ]
+    exports: [
+        PaginationComponent,
+        NavBarComponent,
+        LandigPageComponent,
+        AdminLayoutModule,
+        DonutChartComponent,
+        LineGraphComponent,
+        LoadingComponent,
+        CountUpDirective,
+        DatasetsComponent,
+        MatSelectSearchComponent
+    ]
 })
 export class SharedModule {}

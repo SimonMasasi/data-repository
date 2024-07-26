@@ -26,12 +26,12 @@ export class ModelViewComponent {
     message: '',
   };
   submitUserForm ={
-    userId:{
-      id:null
-    }
+    userId:null
   };
   canUserShare:boolean=false;
   value:any;
+  regionsCopy : any[]=[]
+
   chat_messages :any;
   chatModelIsOpen=false;
   modelId: string|any;
@@ -91,10 +91,12 @@ isUserModalOpen=false;
 
     );
 
+
     this.getDownloadsData();
     this.updateModelViewers();
     this.modelService.getAllUsers().subscribe((response)=>{
       this.allUsers = response
+      this.regionsCopy=response
     })
 
 
@@ -122,14 +124,40 @@ isUserModalOpen=false;
   }
 
 
+  changed(value: any) {
+    console.log(value)
+    this.regionsCopy=this.filterCountries(value)
+  }
+  filterCountries(input:any) {
+    const myList = []
+    if(input){
+      for(let i=0;i<this.allUsers.length;i++){
+        if(this.allUsers[i].username.toLowerCase().includes(input.toLowerCase())){
+          myList.push(this.allUsers[i]);
+        }
+
+      }
+      return myList
+    }
+    else{
+      return this.allUsers;
+    }
+
+
+  }
+
+
 
   SubmitCountry():void{
-    if(this.submitUserForm.userId.id==null){
+    if(this.submitUserForm.userId==null){
       this.toastr.warning("please select desired user")
       return;
     }
 
-    this.modelService.createNewModelUser(this.modelId , this.submitUserForm.userId.id).subscribe((response)=>{
+    const foodBar = this.allUsers.find((item:any) => item.username === this.submitUserForm.userId);
+
+
+    this.modelService.createNewModelUser(this.modelId , foodBar.id).subscribe((response)=>{
       if(response?.error){
         this.toastr.error(response?.message)
         return
@@ -140,7 +168,6 @@ isUserModalOpen=false;
     this.chatMyOtherModelIsOpen=false;
 
   }
-
 
   openTheOtherModel(){
     this.chatMyOtherModelIsOpen=true
@@ -486,5 +513,6 @@ deleteModelFile(modelId: number){
       }
     );
   }
+
   
 }

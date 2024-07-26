@@ -332,18 +332,35 @@
     </div>
 
     <form class="form" (ngSubmit)="SubmitCountry()">
-      <select
-        required
-        placeholder="type message"
-        [(ngModel)]="submitMessageForm.country"
-        name="message"
-        class="flex-1 p-2 border rounded-lg text-sm w-full my-2"
-      >
-        <option value="" disabled>Choose a country</option>
-        <option *ngFor="let region of regions" [ngValue]="region">
-          {{ region.name }}
-        </option>
-      </select>
+<!--      <select-->
+<!--        required-->
+<!--        placeholder="type message"-->
+<!--        [(ngModel)]="submitMessageForm.country"-->
+<!--        name="message"-->
+<!--        class="flex-1 p-2 border rounded-lg text-sm w-full my-2"-->
+<!--      >-->
+<!--        <option value="" disabled>Choose a country</option>-->
+<!--        <option *ngFor="let region of regions" [ngValue]="region">-->
+<!--          {{ region.name }}-->
+<!--        </option>-->
+<!--      </select>-->
+
+        <mat-label>Pick a Country</mat-label>
+        <input type="text"
+               placeholder="Pick Country"
+               class="flex-1 p-2 border rounded-lg text-sm w-full my-2"
+               aria-label="Number"
+               [(ngModel)]="submitMessageForm.country"
+               (ngModelChange)="changed($event)"
+               matInput
+               [matAutocomplete]="auto">
+
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" >
+            @for (option of regionsCopy ; track option.name) {
+                <mat-option [value]="option.name">{{option.name}}</mat-option>
+            }
+        </mat-autocomplete>
+
       <button
         type="submit"
         id="myinput"

@@ -20,6 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { NgxDocViewerModule } from 'ngx-doc-viewer'; 
 import { ChipsModule } from 'primeng/chips';
+import {SharedRoutingModule} from "../../shared/shared-routing.module";
 
 @NgModule({
   declarations: [
@@ -29,23 +30,24 @@ import { ChipsModule } from 'primeng/chips';
     DatasetUploadComponent,
     MydatasetComponent,
   ],
-  imports: [
-    CommonModule,
-    DatasetsRoutingModule,
-    SharedModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatStepperModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatRadioModule,
-    MaterialModule,
-    MatTooltipModule,
-    TreeModule,
-    ChipsModule,
-    NgxDocViewerModule,
-    ToastrModule.forRoot(),
-  ],
+    imports: [
+        CommonModule,
+        DatasetsRoutingModule,
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatStepperModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatRadioModule,
+        MaterialModule,
+        MatTooltipModule,
+        TreeModule,
+        ChipsModule,
+        NgxDocViewerModule,
+        ToastrModule.forRoot(),
+        SharedRoutingModule,
+    ],
 })
 export class DatasetsModule { }

@@ -33,6 +33,7 @@
     "ng-otp-input": "^1.9.3",
     "ng2-file-upload": "^5.0.0",
     "ngx-doc-viewer": "^15.0.1",
+    "ngx-mat-select-search": "^7.0.6",
     "ngx-papaparse": "^8.0.0",
     "ngx-permissions": "^17.1.0",
     "ngx-toastr": "^18.0.0",

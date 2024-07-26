@@ -4,7 +4,10 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 const routes: Routes = [];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    declarations: [
+
+    ],
+    exports: [RouterModule]
 })
 export class SharedRoutingModule { }

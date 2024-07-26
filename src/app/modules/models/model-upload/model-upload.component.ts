@@ -14,12 +14,10 @@ export class ModelUploadComponent implements OnInit {
 
   private fileData: FileList = new DataTransfer().files;
   selectedFiles: File[] = [];
+  regionsCopy : any[]=[]
   selectedFile: any;
   submitMessageForm = {
-    country: {
-      id:1,
-      name:"none"
-    },
+    country:''
   };
   repo_name: any;
   email: any;
@@ -50,6 +48,7 @@ export class ModelUploadComponent implements OnInit {
 
     this.modelUploadService.getRegions().subscribe(response=>{
       this.regions= response;
+      this.regionsCopy=response;
     })
     this.addFile([]);
   }
@@ -147,11 +146,11 @@ export class ModelUploadComponent implements OnInit {
 
 
   SubmitCountry():void{
-    if(this.submitMessageForm.country?.name=="none"){
+    if(this.submitMessageForm.country=="none"){
       this.toastr.warning("please select desired country")
       return;
     }
-    if(this.submitMessageForm.country?.name.toLocaleLowerCase()!="tanzania"){
+    if(this.submitMessageForm.country.toLocaleLowerCase()!="tanzania"){
       this.toastr.error("sorry only Tanzania related models are allowed")
       this.router.navigate(['/my-models'])
     }
@@ -232,6 +231,28 @@ export class ModelUploadComponent implements OnInit {
     listItem.remove();
     console.log(this.fileData);
   }
+
+  changed(value: any) {
+    console.log(value)
+    this.regionsCopy=this.filterCountries(value)
+  }
+  filterCountries(input:any) {
+    const myList = []
+    if(input){
+      for(let i=0;i<this.regions.length;i++){
+        if(this.regions[i].name.toLowerCase().includes(input.toLowerCase())){
+          myList.push(this.regions[i]);
+        }
+
+      }
+      return myList
+    }
+    else{
+      return this.regions;
+    }
+
+
+  }
   
   
   onDragOver(event: DragEvent) {
@@ -244,4 +265,5 @@ export class ModelUploadComponent implements OnInit {
     this.addFile(this.selectedFile)
   
   }
+
 }

@@ -60,7 +60,7 @@ getAllDatasets(page: number, query: any, categories: any, myDataset: boolean): O
   }
 
 
-  createNewDataUser(datasetId: number , userId:number): Observable<any> {
+  createNewDataUser(datasetId: any , userId:any): Observable<any> {
     const token = localStorage.getItem('token'); // Retrieve token from local storage
     if (!token) {
       return throwError('No token found'); // Handle case where token is not available

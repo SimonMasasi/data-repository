@@ -11,6 +11,7 @@ import { interval, switchMap, timer } from 'rxjs';
 interface DatasetDetailsResponse {
   dataset: any;
   files: any[];
+
 }
 
 import { AuthService } from 'src/app/services/auth.service';
@@ -29,10 +30,11 @@ export class DatasetViewComponent {
     message: '',
   };
 
+  regionsCopy : any[]=[]
+
+
   submitUserForm ={
-    userId:{
-      id:null
-    }
+    userId:null
   }
   canUserShare=false
   allUsers:any;
@@ -102,19 +104,46 @@ chatModelIsOpen = false
 
     this.datasetService.getAllUsers().subscribe((response)=>{
       this.allUsers = response
+      this.regionsCopy=response;
     })
 
   }
 
 
 
+  changed(value: any) {
+    console.log(value)
+    this.regionsCopy=this.filterCountries(value)
+  }
+  filterCountries(input:any) {
+    const myList = []
+    if(input){
+      for(let i=0;i<this.allUsers.length;i++){
+        if(this.allUsers[i].username.toLowerCase().includes(input.toLowerCase())){
+          myList.push(this.allUsers[i]);
+        }
+
+      }
+      return myList
+    }
+    else{
+      return this.allUsers;
+    }
+
+
+  }
+
+
+
   SubmitCountry():void{
-    if(this.submitUserForm.userId.id==null){
+    if(this.submitUserForm.userId==0){
       this.toastr.warning("please select desired user")
       return;
     }
 
-    this.datasetService.createNewDataUser(this.datasetId , this.submitUserForm.userId.id).subscribe((response)=>{
+    const foodBar = this.allUsers.find((item:any) => item.username === this.submitUserForm.userId);
+
+    this.datasetService.createNewDataUser(this.datasetId , foodBar.id).subscribe((response)=>{
       if(response?.error){
         this.toastr.error(response?.message)
         return

@@ -1,0 +1,19 @@
+<mat-form-field appearance="outline" class="material-form">
+
+<mat-label>{{ label }}</mat-label>
+  <mat-select #select (selectionChange)="onSelectionChange($event.value)">
+    <ng-container *ngIf="data$ | async as dataList">
+      <mat-option>
+        <ngx-mat-select-search (ngModelChange)="onSearch($event)" [clearSearchInput]="false"
+                               [formControl]="filterCtrl"
+                               noEntriesFoundLabel="No Data Found"
+                               placeholderLabel="Search">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let data of dataList" [value]="data">
+        {{ data[displayColumn] }}
+      </mat-option>
+    </ng-container>
+
+  </mat-select>
+</mat-form-field>
